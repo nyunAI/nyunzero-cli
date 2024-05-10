@@ -14,7 +14,7 @@ from docker.models.containers import ExecResult, Container
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
 
-SUPPORTED_SUFFIX = {".yaml", ".json"}
+SUPPORTED_SUFFIX = {".yaml", ".yml", ".json"}
 
 app = typer.Typer()
 

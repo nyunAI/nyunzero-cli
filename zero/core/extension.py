@@ -51,17 +51,27 @@ class BaseExtension:
 
     def register(self, metadata: DockerMetadata):
         self._registry.add(metadata)
-    
-    def filter_registry(self, algorithm: Union[None, Algorithm] = None, platform: Union[None, Platform] = None) -> List[DockerMetadata]:
+
+    def filter_registry(
+        self,
+        algorithm: Union[None, Algorithm] = None,
+        platform: Union[None, Platform] = None,
+    ) -> List[DockerMetadata]:
 
         if not algorithm and not platform:
             return self._registry
         if not algorithm:
             return list(filter(lambda meta: platform in meta.platforms, self._registry))
         if not platform:
-            return list(filter(lambda meta: algorithm == meta.algorithm, self._registry))
-        return list(filter(lambda meta: algorithm == meta.algorithm and platform in meta.platforms, self._registry))
-        
+            return list(
+                filter(lambda meta: algorithm == meta.algorithm, self._registry)
+            )
+        return list(
+            filter(
+                lambda meta: algorithm == meta.algorithm and platform in meta.platforms,
+                self._registry,
+            )
+        )
 
     def install(self):
         if len(self._all_docker_images) == 0:
@@ -86,8 +96,17 @@ class BaseExtension:
             data = yaml.safe_load(file)
 
         try:
-            algorithm = Algorithm(data.get(YamlKeys.ALGORITHM), None)
-            platform = Platform(data.get(YamlKeys.PLATFORM), None)
+            if not data.get(YamlKeys.ALGORITHM, data.get(YamlKeys.TASK, False)):
+                raise KeyError("Atleast one of 'ALGORITHM' or 'TASK' key is required.")
+
+            algorithm = Algorithm(
+                data.get(YamlKeys.ALGORITHM) or data.get(YamlKeys.TASK)
+            )
+            platform = (
+                Platform(data.get(YamlKeys.PLATFORM))
+                if data.get(YamlKeys.PLATFORM)
+                else None
+            )
         except Exception as e:
             logger.error(e)
             raise Exception from e
@@ -305,4 +324,61 @@ class KompressTextGenerationExtension(BaseExtension):
 class AdaptExtension(BaseExtension):
     extension_type = WorkspaceExtension.ADAPT
     docker_images = {NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT)}
-    extension_metadata = {}
+    extension_metadata = {
+        # huggingface - 'text_generation'
+        DockerMetadata(
+            algorithm=Algorithm.TEXT_GENERATION,
+            docker_image=NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
+            platforms=[Platform.HUGGINGFACE],
+            extension=WorkspaceExtension.ADAPT,
+        ),
+        # huggingface - 'text_classification'
+        DockerMetadata(
+            algorithm=Algorithm.TEXT_CLASSIFICATION,
+            docker_image=NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
+            platforms=[Platform.HUGGINGFACE],
+            extension=WorkspaceExtension.ADAPT,
+        ),
+        # huggingface - 'question_answering
+        DockerMetadata(
+            algorithm=Algorithm.QUESTION_ANSWERING,
+            docker_image=NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
+            platforms=[Platform.HUGGINGFACE],
+            extension=WorkspaceExtension.ADAPT,
+        ),
+        # huggingface - 'Seq2Seq_tasks.summarization', 'Seq2Seq_tasks.translation'
+        DockerMetadata(
+            algorithm=Algorithm.SEQ2SEQ_TASKS,
+            docker_image=NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
+            platforms=[Platform.HUGGINGFACE],
+            extension=WorkspaceExtension.ADAPT,
+        ),
+        # mmdet - 'detection'
+        DockerMetadata(
+            algorithm=Algorithm.DETECTION,
+            docker_image=NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
+            platforms=[Platform.MMDET],
+            extension=WorkspaceExtension.ADAPT,
+        ),
+        # mmpose - pose est
+        DockerMetadata(
+            algorithm=Algorithm.POSE_DETECTION,
+            docker_image=NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
+            platforms=[Platform.MMPOSE],
+            extension=WorkspaceExtension.ADAPT,
+        ),
+        # mmseg - segmentation
+        DockerMetadata(
+            algorithm=Algorithm.SEGMENTATION,
+            docker_image=NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
+            platforms=[Platform.MMSEG],
+            extension=WorkspaceExtension.ADAPT,
+        ),
+        # hf/timm - image classification
+        DockerMetadata(
+            algorithm=Algorithm.IMAGE_CLASSIFICATION,
+            docker_image=NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
+            platforms=[Platform.HUGGINGFACE, Platform.TIMM],
+            extension=WorkspaceExtension.ADAPT,
+        ),
+    }

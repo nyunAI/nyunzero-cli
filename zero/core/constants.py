@@ -190,11 +190,27 @@ class Algorithm(StrEnum):
     FLAPPRUNER = "FlapPruner"
     TENSORRT = "TensorRT"
 
+    # adapt
+    # NOTE: The following values are essentially "TASK" values in adapt
+    # TODO: Use a constant set of keys post standardization of hyperparams across Nyun
+
+    DETECTION = "detection"
+    IMAGE_CLASSIFICATION = "image_classification"
+    POSE_DETECTION = "pose_detection"
+    QUESTION_ANSWERING = "question_answering"
+    SEGMENTATION = "segmentation"
+    SEQ2SEQ_TASKS = "Seq2Seq_tasks"
+    TEXT_CLASSIFICATION = "text_classification"
+    TEXT_GENERATION = "text_generation"
+
 
 # yaml keys
 class YamlKeys(StrEnum):
     ALGORITHM = "ALGORITHM"
     PLATFORM = "PLATFORM"
+
+    # adapt
+    TASK = "TASK"
 
 
 class DockerPath(Enum):
