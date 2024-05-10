@@ -1,4 +1,9 @@
-from enum import StrEnum, Enum
+from enum import Enum
+try:
+    from enum import StrEnum
+except ImportError:
+    from strenum import StrEnum
+
 from pathlib import Path
 from typing import Union, Dict
 
@@ -94,7 +99,7 @@ class WorkspaceExtension(StrEnum):
         other_extension: Dict["WorkspaceExtension", str],
     ):
 
-        # cast keys to WorkspaceExtension and values to bool
+        # cast keys to WorkspaceExtension
         extension = {WorkspaceExtension(key): value for key, value in extension.items()}
         other_extension = {
             WorkspaceExtension(key): value for key, value in other_extension.items()
