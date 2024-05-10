@@ -40,10 +40,9 @@ class NyunDocker:
             return (self.repository, self.tag) == (other.repository, other.tag)
         return False
     
-    def run(self, file_path: Path):
+    def run(self, file_path: Path, workspace: "Workspace", metadata: "DockerMetadata"):
         # TODO: validate the path (corresponding to container)
-        command = f"python main.py {file_path.absolute().resolve()}"
-        run_docker_container(command, self)
+        return run_docker_container(file_path, workspace, metadata, self)
 
         # TODO: except if docker is unavailable due to some reason: 
         # pull docker and run again.

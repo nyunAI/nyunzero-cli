@@ -1,9 +1,17 @@
-from zero.core.constants import WorkspaceExtension, DockerRepository, DockerTag, Algorithm
+from zero.core.constants import (
+    WorkspaceExtension,
+    DockerRepository,
+    DockerTag,
+    Algorithm,
+    Platform,
+    YamlKeys,
+)
 from zero.core.utils import pull_docker_image
 from zero.core.models import NyunDocker
-from typing import Any, Set, List, Dict, Union
+from typing import Any, Set, List, Dict, Union, Tuple
 from pathlib import Path
 import logging
+from docker.models.containers import ExecResult, Container
 
 logger = logging.getLogger(__name__)
 
@@ -11,18 +19,24 @@ logger = logging.getLogger(__name__)
 class DockerMetadata:
     # a class to store extension metadata: Algorithm, NyunDocker, BaseExtension
 
-    def __init__(self, algorithm: Algorithm, docker_image: NyunDocker, extension: WorkspaceExtension):
+    def __init__(
+        self,
+        platforms: List[Platform],
+        algorithm: Algorithm,
+        docker_image: NyunDocker,
+        extension: WorkspaceExtension,
+    ):
+        self.platforms = platforms
         self.algorithm = algorithm
         self.docker_image = docker_image
         self.extension_type = extension
 
 
 class BaseExtension:
-    # to be defined on inheritence
+
     extension_type: Union[WorkspaceExtension, None] = None
     docker_images: Set[NyunDocker] = set()
-    algorithm_to_docker: Dict[Algorithm, NyunDocker] = {}
-
+    extension_metadata: Set[DockerMetadata] = set()
 
     _all_docker_images: Set[NyunDocker] = set()
     _registry: Set[DockerMetadata] = set()
@@ -31,18 +45,23 @@ class BaseExtension:
         self.installed = False
         for image in self.docker_images:
             self._all_docker_images.add(image)
-        
-        for algorithm, docker_image in self.algorithm_to_docker.items():
-            self.register(
-                DockerMetadata(
-                    algorithm=algorithm,
-                    docker_image=docker_image,
-                    extension=self.extension_type
-                )
-            )
-    
+
+        for meta in self.extension_metadata:
+            self.register(meta)
+
     def register(self, metadata: DockerMetadata):
         self._registry.add(metadata)
+    
+    def filter_registry(self, algorithm: Union[None, Algorithm] = None, platform: Union[None, Platform] = None) -> List[DockerMetadata]:
+
+        if not algorithm and not platform:
+            return self._registry
+        if not algorithm:
+            return list(filter(lambda meta: platform in meta.platforms, self._registry))
+        if not platform:
+            return list(filter(lambda meta: algorithm == meta.algorithm, self._registry))
+        return list(filter(lambda meta: algorithm == meta.algorithm and platform in meta.platforms, self._registry))
+        
 
     def install(self):
         if len(self._all_docker_images) == 0:
@@ -50,47 +69,191 @@ class BaseExtension:
 
         # parallel pull
         pull_docker_image(*self._all_docker_images)
-        
+
         # or sequencially do img.install() for each image in self._all_docker_images
-    
+
     def uninstall(self):
         print(f"Uninstalling {self.extension_type}")
         # TODO
         # call utils.uninstall
         self.installed = False
-    
-    def run(self, file_path: Path):
+
+    def run(self, file_path: Path, workspace: "Workspace") -> Container:
         # find from registry the metadata that has algorithm and then find the corresponding NyunDocker; then for the NyunDocker trigger the .run()
         import yaml
+
         with open(file_path, "r") as file:
             data = yaml.safe_load(file)
-        
+
         try:
-            algorithm = Algorithm(data.get("algorithm"))
+            algorithm = Algorithm(data.get(YamlKeys.ALGORITHM), None)
+            platform = Platform(data.get(YamlKeys.PLATFORM), None)
         except Exception as e:
             logger.error(e)
             raise Exception from e
-        
-        docker_image = None
-        for metadata in self._registry:
-            if metadata.algorithm == algorithm:
-                docker_image = metadata.docker_image
-                break
-        if docker_image is None:
+
+        metadata = self.filter_registry(algorithm=algorithm, platform=platform)
+        metadata = metadata[0] if len(metadata) else None
+
+        print("Extension type:", metadata.extension_type)
+        print("Algorithm:", metadata.algorithm)
+        print("Platforms:", [str(platform) for platform in metadata.platforms])
+
+        if metadata is None:
             raise ValueError(f"No docker image found for algorithm: {algorithm}")
-        docker_image.run(file_path)
+        return metadata.docker_image.run(file_path, workspace, metadata)
 
 
 class KompressVisionExtension(BaseExtension):
+
+    # => kompress-vision
+
     extension_type = WorkspaceExtension.VISION
     docker_images = {
         NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS),
         NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.KOMPRESS_MMRAZOR),
     }
-    algorithm_to_docker = {
-
+    extension_metadata = {
+        # "torchvision.FXQuant": "main_kompress"
+        DockerMetadata(
+            algorithm=Algorithm.FXQUANT,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+            ),
+            platforms=[Platform.TORCHVISION],
+            extension=WorkspaceExtension.VISION,
+        ),
+        # "timm.KDTransfer": "main_kompress",
+        DockerMetadata(
+            algorithm=Algorithm.KDTRANSFER,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+            ),
+            platforms=[Platform.TIMM],
+            extension=WorkspaceExtension.VISION,
+        ),
+        # "mmyolo.MMRazor": "mmrazor",
+        # "mmdet.MMRazor": "mmrazor",
+        DockerMetadata(
+            algorithm=Algorithm.MMRAZOR,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_KOMPRESS, DockerTag.KOMPRESS_MMRAZOR
+            ),
+            platforms=[Platform.MMYOLO, Platform.MMDET],
+            extension=WorkspaceExtension.VISION,
+        ),
+        # "mmseg.MMRazorDistill": "mmrazor",
+        # "mmpose.MMRazorDistill": "mmrazor",
+        # "mmdet.MMRazorDistill": "mmrazor",
+        # "mmyolo.MMRazorDistill": "mmrazor",
+        DockerMetadata(
+            algorithm=Algorithm.MMRAZORDISTILL,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_KOMPRESS, DockerTag.KOMPRESS_MMRAZOR
+            ),
+            platforms=[
+                Platform.MMSEG,
+                Platform.MMPOSE,
+                Platform.MMDET,
+                Platform.MMYOLO,
+            ],
+            extension=WorkspaceExtension.VISION,
+        ),
+        # "mmdet.NNCF": "mmrazor",
+        DockerMetadata(
+            algorithm=Algorithm.NNCF,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_KOMPRESS, DockerTag.KOMPRESS_MMRAZOR
+            ),
+            platforms=[
+                Platform.MMDET,
+            ],
+            extension=WorkspaceExtension.VISION,
+        ),
+        # "torchvision.NNCF": "main_kompress",
+        DockerMetadata(
+            algorithm=Algorithm.NNCF,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+            ),
+            platforms=[
+                Platform.TORCHVISION,
+            ],
+            extension=WorkspaceExtension.VISION,
+        ),
+        # "timm.NNCFQAT": "main_kompress",
+        DockerMetadata(
+            algorithm=Algorithm.NNCFQAT,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+            ),
+            platforms=[
+                Platform.TIMM,
+            ],
+            extension=WorkspaceExtension.VISION,
+        ),
+        # "mmdet.NNCFQAT": "mmrazor",
+        # "mmseg.NNCFQAT": "mmrazor",
+        DockerMetadata(
+            algorithm=Algorithm.NNCFQAT,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_KOMPRESS, DockerTag.KOMPRESS_MMRAZOR
+            ),
+            platforms=[
+                Platform.MMDET,
+                Platform.MMSEG,
+            ],
+            extension=WorkspaceExtension.VISION,
+        ),
+        # "mmdet.ONNXQuant": "main_kompress",
+        # "mmyolo.ONNXQuant": "main_kompress",
+        # "mmseg.ONNXQuant": "main_kompress",
+        # "mmpose.ONNXQuant": "main_kompress",
+        # "timm.ONNXQuant": "main_kompress",
+        DockerMetadata(
+            algorithm=Algorithm.ONNXQUANT,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+            ),
+            platforms=[
+                Platform.MMDET,
+                Platform.MMYOLO,
+                Platform.MMSEG,
+                Platform.MMPOSE,
+                Platform.TIMM,
+            ],
+            extension=WorkspaceExtension.VISION,
+        ),
+        # "mmyolo.TensorRT": "main_kompress",
+        # "mmdet.TensorRT": "main_kompress",
+        # "torchvision.TensorRT": "main_kompress",
+        # "mmpose.TensorRT": "main_kompress",
+        # "mmseg.TensorRT": "main_kompress",
+        DockerMetadata(
+            algorithm=Algorithm.TENSORRT,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+            ),
+            platforms=[
+                Platform.MMDET,
+                Platform.MMYOLO,
+                Platform.MMSEG,
+                Platform.MMPOSE,
+                Platform.TORCHVISION,
+            ],
+            extension=WorkspaceExtension.VISION,
+        ),
+        # "timm.TorchPrune": "main_kompress",
+        # "torchvision.TorchPrune": "main_kompress",
+        DockerMetadata(
+            algorithm=Algorithm.TORCHPRUNE,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+            ),
+            platforms=[Platform.TIMM, Platform.TORCHVISION],
+            extension=WorkspaceExtension.VISION,
+        ),
     }
-
 
 
 class KompressTextGenerationExtension(BaseExtension):
@@ -103,14 +266,43 @@ class KompressTextGenerationExtension(BaseExtension):
         NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.EXLLAMA),
     }
 
-    algorithm_to_docker = {
-        Algorithm.AUTOAWQ: NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.AWQ)
+    extension_metadata = {
+        DockerMetadata(
+            algorithm=Algorithm.AUTOAWQ,
+            docker_image=NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.AWQ),
+            platforms=[Platform.HUGGINGFACE],
+            extension=WorkspaceExtension.TEXT_GENERATION,
+        ),
+        DockerMetadata(
+            algorithm=Algorithm.EXLLAMA,
+            docker_image=NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.EXLLAMA),
+            platforms=[Platform.HUGGINGFACE],
+            extension=WorkspaceExtension.TEXT_GENERATION,
+        ),
+        DockerMetadata(
+            algorithm=Algorithm.MLCLLM,
+            docker_image=NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.MLCLLM),
+            platforms=[Platform.HUGGINGFACE],
+            extension=WorkspaceExtension.TEXT_GENERATION,
+        ),
+        DockerMetadata(
+            algorithm=Algorithm.TENSORRTLLM,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_KOMPRESS, DockerTag.TENSORRTLLM
+            ),
+            platforms=[Platform.HUGGINGFACE],
+            extension=WorkspaceExtension.TEXT_GENERATION,
+        ),
+        DockerMetadata(
+            algorithm=Algorithm.FLAPPRUNER,
+            docker_image=NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.FLAP),
+            platforms=[Platform.HUGGINGFACE],
+            extension=WorkspaceExtension.TEXT_GENERATION,
+        ),
     }
 
 
 class AdaptExtension(BaseExtension):
     extension_type = WorkspaceExtension.ADAPT
     docker_images = {NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT)}
-    algorithm_to_docker = {
-
-    }
+    extension_metadata = {}

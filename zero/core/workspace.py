@@ -223,7 +223,7 @@ class Workspace:
     def __repr__(self):
         return self.__str__()
 
-    def init_extension(self):
+    def init_extension(self) -> BaseExtension:
         extensions = dict(self.workspace_spec[WorkspaceSpec.EXTENSIONS])
         ext_obj = BaseExtension()
         for key, value in extensions.items():
@@ -235,6 +235,7 @@ class Workspace:
                 elif WorkspaceExtension(key) == WorkspaceExtension.ADAPT:
                     AdaptExtension()
         ext_obj.install()
+        return ext_obj
 
 
 

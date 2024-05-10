@@ -1,4 +1,4 @@
-from enum import StrEnum
+from enum import StrEnum, Enum
 from pathlib import Path
 from typing import Union, Dict
 
@@ -28,6 +28,7 @@ class WorkspaceMessage(StrEnum):
 
     WORKSPACE_INITIALIZED = "Workspace initialized."
 
+
 # Workspace extension
 class WorkspaceExtension(StrEnum):
 
@@ -46,6 +47,9 @@ class WorkspaceExtension(StrEnum):
             extension = {
                 WorkspaceExtension(key): value for key, value in extension.items()
             }
+            if all(val == "True" for val in extension.values()):
+                return [WorkspaceExtension.ALL]
+
             retlist = [ext for ext, value in extension.items() if value == "True"]
             return retlist
         elif extension == WorkspaceExtension.ALL:
@@ -126,7 +130,10 @@ class WorkspaceSpec(StrEnum):
         return workspace_path / WorkspaceSpec.NYUN / WorkspaceSpec.LOG_FILE
 
 
-# Docker
+# ==============================================================
+#                       Docker Constants
+# ==============================================================
+
 
 class DockerRepository(StrEnum):
     # kompress
@@ -134,6 +141,7 @@ class DockerRepository(StrEnum):
 
     # adapt
     NYUN_ADAPT = "nyunadmin/adapt"
+
 
 class DockerTag(StrEnum):
     # kompress vision
@@ -150,5 +158,73 @@ class DockerTag(StrEnum):
     # adapt
     ADAPT = "february"
 
+
+class Platform(StrEnum):
+    # Platforms: {'timm', 'huggingface', 'mmpose', 'mmdet', None, 'torchvision', 'mmyolo', 'mmseg'}
+    HUGGINGFACE = "huggingface"
+    TIMM = "timm"
+    MMPOSE = "mmpose"
+    MMDET = "mmdet"
+    TORCHVISION = "torchvision"
+    MMYOLO = "mmyolo"
+    MMSEG = "mmseg"
+
+
 class Algorithm(StrEnum):
+
+    # kompress vision
+    KDTRANSFER = "KDTransfer"
+    MMRAZORDISTILL = "MMRazorDistill"
+    ONNXQUANT = "ONNXQuant"
+    FXQUANT = "FXQuant"
+    MMRAZOR = "MMRazor"
+    NNCFQAT = "NNCFQAT"
+    TORCHPRUNE = "TorchPrune"
+    NNCF = "NNCF"
+
+    # kompress text-generation
     AUTOAWQ = "AutoAWQ"
+    MLCLLM = "MLCLLM"
+    EXLLAMA = "ExLlama"
+    TENSORRTLLM = "TensorRTLLM"
+    FLAPPRUNER = "FlapPruner"
+    TENSORRT = "TensorRT"
+
+
+# yaml keys
+class YamlKeys(StrEnum):
+    ALGORITHM = "ALGORITHM"
+    PLATFORM = "PLATFORM"
+
+
+class DockerPath(Enum):
+
+    SCRIPT = Path("/scripts")
+    WORKSPACE = Path("/workspace")
+    USER_DATA = Path("/user_data")
+
+    @staticmethod
+    def get_customdata_path_in_docker(
+        workspace_extension: Union[WorkspaceExtension, str]
+    ) -> Path:
+        if WorkspaceExtension(workspace_extension) in {
+            WorkspaceExtension.TEXT_GENERATION,
+            WorkspaceExtension.VISION,
+        }:
+            return DockerPath.WORKSPACE.value / "Kompress" / "custom_data"
+        elif WorkspaceExtension(workspace_extension) in {WorkspaceExtension.ADAPT}:
+            return DockerPath.WORKSPACE.value / "Adapt" / "custom_data"
+
+    @staticmethod
+    def get_script_path_in_docker(script_path: Path):
+        # maps /some/path/to/script.extension:/scripts/script.extension
+        return DockerPath.SCRIPT.value / script_path.name
+
+
+class DockerCommand(StrEnum):
+
+    RUN = "python main.py --yaml_path {script_path}"
+
+    @staticmethod
+    def get_run_command(script_path: Union[Path, str]):
+        return DockerCommand.RUN.format(script_path=script_path)

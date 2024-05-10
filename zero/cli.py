@@ -4,12 +4,15 @@ from pathlib import Path
 from typing import Union, AnyStr, List
 from zero.version import __version__
 from zero.docs import NYUN_TRADEMARK
-
 from zero.core.workspace import (
     Workspace,
     WorkspaceExtension,
     get_workspace_and_custom_data_paths,
 )
+
+from docker.models.containers import ExecResult, Container
+from rich.progress import Progress, SpinnerColumn, TextColumn
+
 
 SUPPORTED_SUFFIX = {".yaml", ".json"}
 
@@ -46,11 +49,6 @@ def init(
     else:
         custom_data_path = workspace_path / custom_data_path
 
-    # typer.echo(f"Workspace: {workspace_path}")
-    # typer.echo(f"Custom Data: {custom_data_path}")
-    # typer.echo(f"Extensions: {extensions}")
-    # typer.echo(f"Overwrite: {overwrite}")
-
     try:
         workspace = Workspace(
             workspace_path=workspace_path,
@@ -66,27 +64,54 @@ def init(
 
 
 @app.command()
-def run(file_path: Path):
+def run(file_path: Path = typer.Argument(None, help="Path to yaml file.")):
     """Run the specified file."""
     if file_path.suffix in SUPPORTED_SUFFIX:
         workspace_path, custom_data_path, extensions = (
             get_workspace_and_custom_data_paths(None, None)
         )
-        workspace = Workspace(
-            workspace_path=workspace_path,
-            custom_data_path=custom_data_path,
-            overwrite=False,
-            extensions=extensions,
-        )
-        workspace.init_extension()
-        typer.echo(f"Running file: {file_path}")
-        typer.echo(f"{workspace}")
-        # Perform the file processing logic here
+        try:
+            workspace = Workspace(
+                workspace_path=workspace_path,
+                custom_data_path=custom_data_path,
+                overwrite=False,
+                extensions=extensions[0],
+            )
+        except:
+            typer.echo("Workspace not initialized. Use `nyun init`.")
+            raise typer.Abort()
+        ext_obj = workspace.init_extension()
+        try:
+            progress = Progress(
+                SpinnerColumn(spinner_name="dots8", speed=2),
+                TextColumn("[progress.description]{task.description}"),
+                transient=False,
+            )
+            with progress:
+                task = progress.add_task(
+                    f"[white](Nyun) Running script {file_path}...",
+                    total=1,
+                    start=False,
+                )
+                running_container: Container = ext_obj.run(
+                    file_path=file_path, workspace=workspace
+                )
+                running_container.wait()
+                # TODO: add checks on container if success or failed. use container.exec_run if needed
+                progress.update(
+                    task,
+                    advance=1,
+                    description=f"[blue]Done.",
+                    completed=True,
+                    refresh=True,
+                )
+        except Exception as e:
+            print(e)
+            raise Exception from e
     else:
         typer.echo("File must be a .yaml or .json file")
 
 
-# add --version or -V option to the CLI
 @app.command()
 def version():
     """Show the version of the CLI."""
