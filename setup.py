@@ -20,7 +20,7 @@ setup(
     python_requires=">=3.6",
     install_requires=[
         "typer",
-        "docker"
+        "docker",
         "python-dotenv"
     ],
     entry_points={
