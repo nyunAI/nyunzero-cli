@@ -27,8 +27,8 @@ nyun init [WORKSPACE_PATH] [CUSTOM_DATA_PATH] [OPTIONS]
 - `OPTIONS`:
   - `--overwrite`, `-o`: Overwrite the existing workspace spec if it already exists.
   - `--extensions`, `-e`: Specify the extensions to install. Defaults to installing all available extensions. Available extensions are:
-    - `vision`: For vision-related tasks (e.g., object detection, image classification).
-    - `text-generation`: For text generation tasks (e.g., language modeling, translation).
+    - `kompress-vision`: For vision-related tasks (e.g., object detection, image classification), using Nyun Kompress.
+    - `kompress-text-generation`: For text generation tasks using Nyun Kompress.
     - `adapt`: For the Adapt framework, which supports various tasks like detection, segmentation, and text generation.
     - `all`: Install all available extensions.
     - `none`: Don't install any extension.
@@ -36,14 +36,15 @@ nyun init [WORKSPACE_PATH] [CUSTOM_DATA_PATH] [OPTIONS]
 Example:
 
 ```shell
-nyun init ~/my-workspace ~/my-data --extensions vision text-generation
+# mkdir ~/my-workspace
+nyun init ~/my-workspace ~/my-data --extensions kompress-vision
 ```
 
-This command initializes a new workspace at `~/my-workspace` and sets the custom data directory to `~/my-data`, installing the vision and text generation extensions.
+This command initializes a new workspace at `~/my-workspace` and sets the custom data directory to `~/my-data`, installing the Nyun Kompress Vision extension.
 
 ### Running Scripts
 
-Once your workspace is initialized, you can run scripts using the `run` command:
+Once your workspace is initialized, you can run scripts using the `run` command in the workspace directory. The command syntax is as follows:
 
 ```shell
 nyun run [SCRIPT_PATH]
