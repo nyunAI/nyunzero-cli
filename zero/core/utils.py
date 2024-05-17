@@ -59,11 +59,11 @@ def pull_docker_image(*image: "NyunDocker"):
         # return from memoized
         if img_map.get(str(img), False):
             return img_map.get(str(img))
-        
+
         if count == total:
             count = 0
         count += 1
-        img_map[str(img)] = count # memoize
+        img_map[str(img)] = count  # memoize
         return count
 
     def wrap(repo, tag, task):

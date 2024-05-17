@@ -1,7 +1,5 @@
-import os
 import typer
 from pathlib import Path
-from typing import Union, AnyStr, List
 from zero.version import __version__
 from zero.docs import NYUN_TRADEMARK
 from zero.core.workspace import (
@@ -17,26 +15,36 @@ SUPPORTED_SUFFIX = {".yaml", ".yml", ".json"}
 
 app = typer.Typer()
 
+
 @app.command()
 def init(
-    workspace: Path = typer.Argument(None, help="Path to the workspace directory. If not provided, the current working directory will be used."),
-    custom_data: Path = typer.Argument(None, help='Path to the custom data directory. If not provided, a default directory ("custom_data") will be created within the workspace.'),
+    workspace: Path = typer.Argument(
+        None,
+        help="Path to the workspace directory. If not provided, the current working directory will be used.",
+    ),
+    custom_data: Path = typer.Argument(
+        None,
+        help='Path to the custom data directory. If not provided, a default directory ("custom_data") will be created within the workspace.',
+    ),
     overwrite: bool = typer.Option(
-        False, "--overwrite", "-o", help="Overwrite the existing workspace spec if it already exists."
+        False,
+        "--overwrite",
+        "-o",
+        help="Overwrite the existing workspace spec if it already exists.",
     ),
     extensions: WorkspaceExtension = typer.Option(
         WorkspaceExtension.ALL,
         "--extensions",
         "-e",
-        help="Specify the extensions to install. Defaults to installing all available extensions. Available extensions are: vision, text-generation, adapt, all, none."
+        help="Specify the extensions to install. Defaults to installing all available extensions. Available extensions are: kompress-vision, kompress-text-generation, adapt, all, none.",
     ),
 ):
     """
     Initialize the Nyun workspace and custom data directory.
 
-    This command initializes the Nyun workspace and custom data directory. 
-    You can provide the path to the workspace directory and the custom data directory. 
-    If not provided, default paths will be used. 
+    This command initializes the Nyun workspace and custom data directory.
+    You can provide the path to the workspace directory and the custom data directory.
+    If not provided, default paths will be used.
     Additionally, you can specify whether to overwrite the existing workspace spec and which extensions to install.
     """
     workspace_path, custom_data_path, _ = get_workspace_and_custom_data_paths(
@@ -44,8 +52,16 @@ def init(
     )
 
     # Resolve absolute paths
-    workspace_path = workspace_path.resolve() if workspace_path.is_absolute() else Path.cwd() / workspace_path
-    custom_data_path = custom_data_path.resolve() if custom_data_path.is_absolute() else workspace_path / custom_data_path
+    workspace_path = (
+        workspace_path.resolve()
+        if workspace_path.is_absolute()
+        else Path.cwd() / workspace_path
+    )
+    custom_data_path = (
+        custom_data_path.resolve()
+        if custom_data_path.is_absolute()
+        else workspace_path / custom_data_path
+    )
 
     try:
         workspace = Workspace(
@@ -60,13 +76,18 @@ def init(
         typer.echo(e)
         raise typer.Abort()
 
+
 @app.command(help="Run scripts within the initialized Nyun workspace.")
-def run(file_path: Path = typer.Argument(None, help="Path to the YAML or JSON script file you want to run.")):
+def run(
+    file_path: Path = typer.Argument(
+        None, help="Path to the YAML or JSON script file you want to run."
+    )
+):
     """
     Run scripts within the initialized Nyun workspace.
 
-    This command allows you to run scripts within the initialized Nyun workspace. 
-    You need to provide the path to the YAML or JSON script file you want to run. 
+    This command allows you to run scripts within the initialized Nyun workspace.
+    You need to provide the path to the YAML or JSON script file you want to run.
     The script will be executed within the initialized workspace.
     """
     if file_path.suffix in SUPPORTED_SUFFIX:
@@ -115,6 +136,7 @@ def run(file_path: Path = typer.Argument(None, help="Path to the YAML or JSON sc
             raise Exception from e
     else:
         typer.echo("File must be a .yaml or .json file")
+
 
 @app.command(help="Show the version of the Nyun CLI.")
 def version():

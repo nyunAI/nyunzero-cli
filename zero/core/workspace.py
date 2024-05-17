@@ -238,9 +238,6 @@ class Workspace:
         return ext_obj
 
 
-
-
-
 def get_workspace_and_custom_data_paths(
     workspace: Union[Path, AnyStr, None], custom_data: Union[Path, AnyStr, None]
 ) -> Tuple[Path, Path]:
@@ -263,9 +260,7 @@ def get_workspace_and_custom_data_paths(
     if custom_data is None:
         if WorkspaceSpec.get_workspace_spec_path(workspace).exists():
             config = Workspace.load_workspace_spec(workspace)
-            custom_data = config.get(
-                WorkspaceSpec.CUSTOM_DATA, WorkspaceSpec.PATH
-            )
+            custom_data = config.get(WorkspaceSpec.CUSTOM_DATA, WorkspaceSpec.PATH)
         else:
             custom_data = workspace / "custom_data"
 
@@ -273,6 +268,8 @@ def get_workspace_and_custom_data_paths(
     custom_data_path = Path(custom_data)
 
     if config:
-        extensions = WorkspaceExtension.get_extensions_list(dict(config[WorkspaceSpec.EXTENSIONS]))
+        extensions = WorkspaceExtension.get_extensions_list(
+            dict(config[WorkspaceSpec.EXTENSIONS])
+        )
 
     return (workspace_path, custom_data_path, extensions)
