@@ -1,0 +1,39 @@
+
+# Activation Aware Quantization (AWQ) for LLM
+
+ALGORITHM: AutoAWQ
+ALGO_TYPE: llm
+TASK: llm
+JOB_ID: 2
+JOB_SERVICE: 'Kompress'
+
+# Model
+MODEL: 'luodian/llama-7b-hf'
+CUSTOM_MODEL_PATH: ''
+
+# Data
+DATA_URL: ''
+DATASET_NAME: 'wikitext'
+DATASET_SUBNAME: 'wikitext-2-raw-v1'
+DATA_PATH: ''
+TEXT_COLUMN: 'text'                                 # if multiple, separate by comma e.g. 'instruction,input,output'
+SPLIT: 'train'
+FORMAT_STRING:                                      # format string for multicolumned datasets
+
+# Paths
+MODEL_PATH: '/user_data/jobs/2'                     # path as inside docker (/user_data)
+CACHE_PATH: /user_data/.cache                       # path as inside docker (/user_data)
+JOB_PATH: '/user_data/jobs/2'                       # path as inside docker (/user_data)
+OUTPUT_PATH: /user_data/models                      # path as inside docker (/user_data)
+USER_FOLDER: /user_data                             # path as inside docker (/user_data)
+LOGGING_PATH: /user_data/logs/2                     # path as inside docker (/user_data)
+
+CUDA_ID: '0,1'
+
+llm:
+  AutoAWQ:
+    # Quantization parameters
+    ZERO_POINT: True                                # zero point quantization
+    W_BIT: 4                                        # weight bitwidth
+    Q_GROUP_SIZE: 128                               # group size for quantization
+    VERSION: 'GEMM'                                 # quantization version. GEMM or GEMV
