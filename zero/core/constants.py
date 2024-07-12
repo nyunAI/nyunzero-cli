@@ -149,6 +149,12 @@ class DockerRepository(StrEnum):
     NYUN_ADAPT = "nyunadmin/adapt"
 
 
+    # public
+    NYUN_ZERO_VISION = "nyunadmin/nyunzero_kompress_vision"
+    NYUN_ZERO_TEXT_GENERATION = "nyunadmin/nyunzero_kompress_vision"
+    NYUN_ZERO_ADAPT = "nyunadmin/nyunzero_adapt"
+
+
 class DockerTag(StrEnum):
     # kompress vision
     MAIN_KOMPRESS = "main_kompress"
@@ -163,6 +169,11 @@ class DockerTag(StrEnum):
 
     # adapt
     ADAPT = "february"
+
+
+    # public v0.1
+    V0_1 = "v0.1"
+    PUBLIC_LATEST = V0_1
 
 
 class Platform(StrEnum):

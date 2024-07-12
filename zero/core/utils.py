@@ -30,9 +30,12 @@ def get_docker_client() -> docker.DockerClient:
     load_dotenv()
 
     client = docker.from_env()
-    client.login(
-        username=os.getenv("DOCKER_USERNAME"), password=os.getenv("DOCKER_ACCESS_TOKEN")
-    )
+    try:
+        client.login(
+            username=os.getenv("DOCKER_USERNAME"), password=os.getenv("DOCKER_ACCESS_TOKEN")
+        )
+    except Exception as e:
+        logger.error("Failed to authenticate with Docker credentials. Only public images can be pulled.")
     return client
 
 
