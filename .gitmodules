@@ -1,0 +1,6 @@
+[submodule "zero/services/nyuntam"]
+	path = zero/services/nyuntam
+	url = https://github.com/nyunAI/nyuntam.git
+[submodule "zero/services/nyuntam-adapt"]
+	path = zero/services/nyuntam-adapt
+	url = https://github.com/nyunAI/nyuntam-adapt.git

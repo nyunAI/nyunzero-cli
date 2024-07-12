@@ -283,10 +283,12 @@ class KompressTextGenerationExtension(BaseExtension):
         NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.MLCLLM),
         # NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.TENSORRTLLM),
         NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.EXLLAMA),
-
         # public
         # NyunDocker(DockerRepository.NYUN_ZERO_TEXT_GENERATION, DockerTag.PUBLIC_LATEST),
-        NyunDocker(DockerRepository.NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM, DockerTag.PUBLIC_LATEST),
+        NyunDocker(
+            DockerRepository.NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM,
+            DockerTag.PUBLIC_LATEST,
+        ),
     }
 
     extension_metadata = {
@@ -311,7 +313,8 @@ class KompressTextGenerationExtension(BaseExtension):
         DockerMetadata(
             algorithm=Algorithm.TENSORRTLLM,
             docker_image=NyunDocker(
-                DockerRepository.NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM, DockerTag.PUBLIC_LATEST
+                DockerRepository.NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM,
+                DockerTag.PUBLIC_LATEST,
             ),
             platforms=[Platform.HUGGINGFACE],
             extension=WorkspaceExtension.TEXT_GENERATION,

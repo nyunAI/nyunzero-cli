@@ -15,9 +15,11 @@ from docker.models.containers import Container, ExecResult
 from zero.core.constants import (
     DockerPath,
     DockerCommand,
+    WorkspaceExtension,
     NYUN_ENV_KEY_PREFIX,
     EMPTY_STRING,
 )
+from zero import NYUNTAM as NyunService_Kompress, NYUNTAM_ADAPT as NyunService_Adapt
 from docker.types import Mount, DeviceRequest
 from docker.errors import NotFound, ImageNotFound
 from pathlib import Path
@@ -220,7 +222,9 @@ def run_docker_container(
         client = get_docker_client()
         script_path = DockerPath.get_script_path_in_docker(script_path=script)
         command = DockerCommand.get_run_command(script_path=script_path)
-
+        service = get_service_from_metadata_extension_type(
+            extension_type=metadata.extension_type
+        )
         mounts = [
             # Mount workspace dir
             Mount(
@@ -243,9 +247,9 @@ def run_docker_container(
                 type="bind",
                 read_only=True,
             ),
-            # Mount /nyun-repo
+            # Mount service
             Mount(
-                source=str("/home/azureuser/shwu/opensource/nyuntam"),
+                source=str(service),
                 target=str(DockerPath.WORK_DIR.value),
                 type="bind",
                 read_only=True,
@@ -317,3 +321,28 @@ def get_environment_keys_from_workspace(env_file_path: Path) -> Dict[str, str]:
         for key, value in dotenv_values(env_file_path).items()
         if key.startswith(NYUN_ENV_KEY_PREFIX)
     }
+
+
+def get_service_from_metadata_extension_type(extension_type: WorkspaceExtension) -> str:
+    """
+    Get the service name from the metadata extension type.
+
+    Args:
+        extension_type (WorkspaceExtension): The extension type.
+
+    Returns:
+        str: The service name.
+    """
+    service = None
+    if extension_type in {
+        WorkspaceExtension.TEXT_GENERATION,
+        WorkspaceExtension.VISION,
+    }:
+        service = NyunService_Kompress
+    elif extension_type in {WorkspaceExtension.ADAPT}:
+        service = NyunService_Adapt
+
+    if service is None:
+        raise ValueError(f"Invalid extension type: {extension_type}")
+
+    return service

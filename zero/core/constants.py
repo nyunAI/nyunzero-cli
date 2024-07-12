@@ -154,11 +154,12 @@ class DockerRepository(StrEnum):
     # adapt
     NYUN_ADAPT = "nyunadmin/adapt"
 
-
     # public
     NYUN_ZERO_VISION = "nyunadmin/nyunzero_kompress_vision"
     NYUN_ZERO_TEXT_GENERATION = "nyunadmin/nyunzero_kompress_text_generation"
-    NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM = "nyunadmin/nyun_zero_text_generation_tensorrt_llm"
+    NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM = (
+        "nyunadmin/nyun_zero_text_generation_tensorrt_llm"
+    )
     NYUN_ZERO_ADAPT = "nyunadmin/nyunzero_adapt"
 
 
@@ -176,7 +177,6 @@ class DockerTag(StrEnum):
 
     # adapt
     ADAPT = "february"
-
 
     # public v0.1
     V0_1 = "v0.1"
@@ -271,6 +271,7 @@ class DockerCommand(StrEnum):
     @staticmethod
     def get_run_command(script_path: Union[Path, str]):
         return DockerCommand.RUN.format(script_path=script_path)
+
 
 NYUN_ENV_KEY_PREFIX = "NYUN_"
 EMPTY_STRING = ""
