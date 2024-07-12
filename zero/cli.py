@@ -10,6 +10,7 @@ from zero.core.workspace import (
 
 from docker.models.containers import ExecResult, Container
 from rich.progress import Progress, SpinnerColumn, TextColumn
+from typing import List
 
 SUPPORTED_SUFFIX = {".yaml", ".yml", ".json"}
 
@@ -79,8 +80,8 @@ def init(
 
 @app.command(help="Run scripts within the initialized Nyun workspace.")
 def run(
-    file_path: Path = typer.Argument(
-        None, help="Path to the YAML or JSON script file you want to run."
+    file_paths: List[Path] = typer.Argument(
+        None, help="Path(s) to the YAML or JSON script file you want to run."
     )
 ):
     """
@@ -90,30 +91,38 @@ def run(
     You need to provide the path to the YAML or JSON script file you want to run.
     The script will be executed within the initialized workspace.
     """
-    if file_path.suffix in SUPPORTED_SUFFIX:
-        # Get workspace paths and extensions
-        workspace_path, custom_data_path, extensions = (
-            get_workspace_and_custom_data_paths(None, None)
+    if not file_paths:
+        typer.echo("Please provide the path(s) to the script file.")
+        raise typer.Abort()
+
+    if any(file_path.suffix not in SUPPORTED_SUFFIX for file_path in file_paths):
+        typer.echo("All configs must be a .yaml or .json files")
+        raise typer.Abort()
+    
+    # Get workspace paths and extensions
+    workspace_path, custom_data_path, extensions = (
+        get_workspace_and_custom_data_paths(None, None)
+    )
+    try:
+        workspace = Workspace(
+            workspace_path=workspace_path,
+            custom_data_path=custom_data_path,
+            overwrite=False,
+            extensions=extensions[0],
         )
-        try:
-            workspace = Workspace(
-                workspace_path=workspace_path,
-                custom_data_path=custom_data_path,
-                overwrite=False,
-                extensions=extensions[0],
-            )
-        except:
-            typer.echo("Workspace not initialized. Use `nyun init`.")
-            raise typer.Abort()
-        ext_obj = workspace.init_extension()
-        try:
-            # Initialize progress bar
-            progress = Progress(
-                SpinnerColumn(spinner_name="dots8", speed=2),
-                TextColumn("[progress.description]{task.description}"),
-                transient=False,
-            )
-            with progress:
+    except:
+        typer.echo("Workspace not initialized. Use `nyun init`.")
+        raise typer.Abort()
+    ext_obj = workspace.init_extension()
+    try:
+        # Initialize progress bar
+        progress = Progress(
+            SpinnerColumn(spinner_name="dots8", speed=2),
+            TextColumn("[progress.description]{task.description}"),
+            transient=False,
+        )
+        with progress:
+            for file_path in file_paths:
                 task = progress.add_task(
                     f"[white](Nyun) Running script {file_path}...",
                     total=1,
@@ -131,11 +140,9 @@ def run(
                     completed=True,
                     refresh=True,
                 )
-        except Exception as e:
-            print(e)
-            raise Exception from e
-    else:
-        typer.echo("File must be a .yaml or .json file")
+    except Exception as e:
+        typer.echo(e)
+        raise typer.Abort()
 
 
 @app.command(help="Show the version of the Nyun CLI.")
