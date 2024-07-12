@@ -278,20 +278,24 @@ class KompressVisionExtension(BaseExtension):
 class KompressTextGenerationExtension(BaseExtension):
     extension_type = WorkspaceExtension.TEXT_GENERATION
     docker_images = {
-        NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.AWQ),
+        # NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.AWQ),
         NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.FLAP),
         NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.MLCLLM),
-        NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.TENSORRTLLM),
+        # NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.TENSORRTLLM),
         NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.EXLLAMA),
+
+        # public
+        # NyunDocker(DockerRepository.NYUN_ZERO_TEXT_GENERATION, DockerTag.PUBLIC_LATEST),
+        NyunDocker(DockerRepository.NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM, DockerTag.PUBLIC_LATEST),
     }
 
     extension_metadata = {
-        DockerMetadata(
-            algorithm=Algorithm.AUTOAWQ,
-            docker_image=NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.AWQ),
-            platforms=[Platform.HUGGINGFACE],
-            extension=WorkspaceExtension.TEXT_GENERATION,
-        ),
+        # DockerMetadata(
+        #     algorithm=Algorithm.AUTOAWQ,
+        #     docker_image=NyunDocker(DockerRepository.NYUN_ZERO_TEXT_GENERATION, DockerTag.PUBLIC_LATEST),
+        #     platforms=[Platform.HUGGINGFACE],
+        #     extension=WorkspaceExtension.TEXT_GENERATION,
+        # ),
         DockerMetadata(
             algorithm=Algorithm.EXLLAMA,
             docker_image=NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.EXLLAMA),
@@ -307,7 +311,7 @@ class KompressTextGenerationExtension(BaseExtension):
         DockerMetadata(
             algorithm=Algorithm.TENSORRTLLM,
             docker_image=NyunDocker(
-                DockerRepository.NYUN_KOMPRESS, DockerTag.TENSORRTLLM
+                DockerRepository.NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM, DockerTag.PUBLIC_LATEST
             ),
             platforms=[Platform.HUGGINGFACE],
             extension=WorkspaceExtension.TEXT_GENERATION,

@@ -6,7 +6,7 @@ except ImportError:
     from strenum import StrEnum
 
 from pathlib import Path
-from typing import Union, Dict
+from typing import Union, Dict, Optional
 
 
 # ==============================================================
@@ -122,6 +122,7 @@ class WorkspaceSpec(StrEnum):
     NYUN = ".nyunservices"
     WORKSPACE_SPEC = "workspace.spec"
     LOG_FILE = "zero.log"
+    ENV = ".env"
 
     @staticmethod
     def get_workspace_spec_path(workspace_path: Path):
@@ -134,6 +135,11 @@ class WorkspaceSpec(StrEnum):
     @staticmethod
     def get_log_file_path(workspace_path: Path):
         return workspace_path / WorkspaceSpec.NYUN / WorkspaceSpec.LOG_FILE
+
+    @staticmethod
+    def get_env_file_path(workspace_path: Optional[Path]):
+        env_path = workspace_path / WorkspaceSpec.ENV
+        return env_path if env_path.exists() else None
 
 
 # ==============================================================
@@ -151,7 +157,8 @@ class DockerRepository(StrEnum):
 
     # public
     NYUN_ZERO_VISION = "nyunadmin/nyunzero_kompress_vision"
-    NYUN_ZERO_TEXT_GENERATION = "nyunadmin/nyunzero_kompress_vision"
+    NYUN_ZERO_TEXT_GENERATION = "nyunadmin/nyunzero_kompress_text_generation"
+    NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM = "nyunadmin/nyun_zero_text_generation_tensorrt_llm"
     NYUN_ZERO_ADAPT = "nyunadmin/nyunzero_adapt"
 
 
@@ -236,6 +243,9 @@ class DockerPath(Enum):
     WORKSPACE = Path("/workspace")
     USER_DATA = Path("/user_data")
 
+    WORK_DIR = Path("/nyun")
+    CUSTOM_DATA = Path("/custom_data")
+
     @staticmethod
     def get_customdata_path_in_docker(
         workspace_extension: Union[WorkspaceExtension, str]
@@ -261,3 +271,6 @@ class DockerCommand(StrEnum):
     @staticmethod
     def get_run_command(script_path: Union[Path, str]):
         return DockerCommand.RUN.format(script_path=script_path)
+
+NYUN_ENV_KEY_PREFIX = "NYUN_"
+EMPTY_STRING = ""
