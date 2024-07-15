@@ -98,10 +98,10 @@ def run(
     if any(file_path.suffix not in SUPPORTED_SUFFIX for file_path in file_paths):
         typer.echo("All configs must be a .yaml or .json files")
         raise typer.Abort()
-    
+
     # Get workspace paths and extensions
-    workspace_path, custom_data_path, extensions = (
-        get_workspace_and_custom_data_paths(None, None)
+    workspace_path, custom_data_path, extensions = get_workspace_and_custom_data_paths(
+        None, None
     )
     try:
         workspace = Workspace(
