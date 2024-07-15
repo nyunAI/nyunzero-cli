@@ -19,7 +19,11 @@ from zero.core.constants import (
     NYUN_ENV_KEY_PREFIX,
     EMPTY_STRING,
 )
-from zero import NYUNTAM as NyunService_Kompress, NYUNTAM_ADAPT as NyunService_Adapt
+from zero import (
+    NYUNTAM as NyunService_Kompress,
+    NYUNTAM_ADAPT as NyunService_Adapt,
+    SERVICES as NyunServices,
+)
 from docker.types import Mount, DeviceRequest
 from docker.errors import NotFound, ImageNotFound
 from pathlib import Path
@@ -248,8 +252,8 @@ def run_docker_container(
             ),
             # Mount service
             Mount(
-                source=str(service),
-                target=str(DockerPath.WORK_DIR.value),
+                source=str(NyunServices),
+                target=str(DockerPath.NYUN_SERVICES.value),
                 type="bind",
                 read_only=True,
             ),
@@ -263,7 +267,10 @@ def run_docker_container(
 
         device_requests = [DeviceRequest(device_ids=["all"], capabilities=[["gpu"]])]
 
-        logger.info(f"Running {image[0]} with command: {command}; Mounts: {mounts}")
+        working_dir = DockerPath.get_service_path_in_docker(service_name=service)
+        logger.info(
+            f"Running {image[0]} with command: {command}\nMounts: {mounts}\nEnvironment: {environment}\nDevice Requests: {device_requests}\nWorking Dir: {working_dir}"
+        )
         running_container: Container = client.containers.run(
             command=command,
             image=str(image[0]),
@@ -271,7 +278,7 @@ def run_docker_container(
             detach=True,
             mounts=mounts,
             remove=True,
-            working_dir=str(DockerPath.WORK_DIR.value),
+            working_dir=str(working_dir),
             environment=environment,
         )
         return running_container

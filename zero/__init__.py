@@ -4,7 +4,7 @@ THIS = Path(__file__).resolve()
 ROOT = THIS.parent
 SERVICES = ROOT / "services"
 
-NYUNTAM = SERVICES / "nyuntam"
-NYUNTAM_ADAPT = SERVICES / "nyuntam-adapt"
+NYUNTAM = "nyuntam"
+NYUNTAM_ADAPT = "nyuntam_adapt"
 
 __all__ = ["NYUNTAM", "NYUNTAM_ADAPT"]

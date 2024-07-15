@@ -278,20 +278,17 @@ class KompressVisionExtension(BaseExtension):
 class KompressTextGenerationExtension(BaseExtension):
     extension_type = WorkspaceExtension.TEXT_GENERATION
     docker_images = {
-        NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.AWQ),
-        NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.FLAP),
         NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.MLCLLM),
-        NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.TENSORRTLLM),
         NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.EXLLAMA),
+        # public
+        NyunDocker(DockerRepository.NYUN_ZERO_TEXT_GENERATION, DockerTag.PUBLIC_LATEST),
+        NyunDocker(
+            DockerRepository.NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM,
+            DockerTag.PUBLIC_LATEST,
+        ),
     }
 
     extension_metadata = {
-        DockerMetadata(
-            algorithm=Algorithm.AUTOAWQ,
-            docker_image=NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.AWQ),
-            platforms=[Platform.HUGGINGFACE],
-            extension=WorkspaceExtension.TEXT_GENERATION,
-        ),
         DockerMetadata(
             algorithm=Algorithm.EXLLAMA,
             docker_image=NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.EXLLAMA),
@@ -304,17 +301,29 @@ class KompressTextGenerationExtension(BaseExtension):
             platforms=[Platform.HUGGINGFACE],
             extension=WorkspaceExtension.TEXT_GENERATION,
         ),
+        # public
+        DockerMetadata(
+            algorithm=Algorithm.AUTOAWQ,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_ZERO_TEXT_GENERATION, DockerTag.PUBLIC_LATEST
+            ),
+            platforms=[Platform.HUGGINGFACE],
+            extension=WorkspaceExtension.TEXT_GENERATION,
+        ),
         DockerMetadata(
             algorithm=Algorithm.TENSORRTLLM,
             docker_image=NyunDocker(
-                DockerRepository.NYUN_KOMPRESS, DockerTag.TENSORRTLLM
+                DockerRepository.NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM,
+                DockerTag.PUBLIC_LATEST,
             ),
             platforms=[Platform.HUGGINGFACE],
             extension=WorkspaceExtension.TEXT_GENERATION,
         ),
         DockerMetadata(
             algorithm=Algorithm.FLAPPRUNER,
-            docker_image=NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.FLAP),
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_ZERO_TEXT_GENERATION, DockerTag.PUBLIC_LATEST
+            ),
             platforms=[Platform.HUGGINGFACE],
             extension=WorkspaceExtension.TEXT_GENERATION,
         ),
@@ -323,32 +332,15 @@ class KompressTextGenerationExtension(BaseExtension):
 
 class AdaptExtension(BaseExtension):
     extension_type = WorkspaceExtension.ADAPT
-    docker_images = {NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT)}
+    docker_images = {
+        # public
+        NyunDocker(DockerRepository.NYUN_ZERO_ADAPT, DockerTag.PUBLIC_LATEST),
+        NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
+    }
     extension_metadata = {
-        # huggingface - 'text_generation'
-        DockerMetadata(
-            algorithm=Algorithm.TEXT_GENERATION,
-            docker_image=NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
-            platforms=[Platform.HUGGINGFACE],
-            extension=WorkspaceExtension.ADAPT,
-        ),
         # huggingface - 'text_classification'
         DockerMetadata(
             algorithm=Algorithm.TEXT_CLASSIFICATION,
-            docker_image=NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
-            platforms=[Platform.HUGGINGFACE],
-            extension=WorkspaceExtension.ADAPT,
-        ),
-        # huggingface - 'question_answering
-        DockerMetadata(
-            algorithm=Algorithm.QUESTION_ANSWERING,
-            docker_image=NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
-            platforms=[Platform.HUGGINGFACE],
-            extension=WorkspaceExtension.ADAPT,
-        ),
-        # huggingface - 'Seq2Seq_tasks.summarization', 'Seq2Seq_tasks.translation'
-        DockerMetadata(
-            algorithm=Algorithm.SEQ2SEQ_TASKS,
             docker_image=NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
             platforms=[Platform.HUGGINGFACE],
             extension=WorkspaceExtension.ADAPT,
@@ -374,10 +366,40 @@ class AdaptExtension(BaseExtension):
             platforms=[Platform.MMSEG],
             extension=WorkspaceExtension.ADAPT,
         ),
+        ## public
+        # huggingface - 'text_generation'
+        DockerMetadata(
+            algorithm=Algorithm.TEXT_GENERATION,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_ZERO_ADAPT, DockerTag.PUBLIC_LATEST
+            ),
+            platforms=[Platform.HUGGINGFACE],
+            extension=WorkspaceExtension.ADAPT,
+        ),
+        # huggingface - 'question_answering
+        DockerMetadata(
+            algorithm=Algorithm.QUESTION_ANSWERING,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_ZERO_ADAPT, DockerTag.PUBLIC_LATEST
+            ),
+            platforms=[Platform.HUGGINGFACE],
+            extension=WorkspaceExtension.ADAPT,
+        ),
+        # huggingface - 'Seq2Seq_tasks.summarization', 'Seq2Seq_tasks.translation'
+        DockerMetadata(
+            algorithm=Algorithm.SEQ2SEQ_TASKS,
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_ZERO_ADAPT, DockerTag.PUBLIC_LATEST
+            ),
+            platforms=[Platform.HUGGINGFACE],
+            extension=WorkspaceExtension.ADAPT,
+        ),
         # hf/timm - image classification
         DockerMetadata(
             algorithm=Algorithm.IMAGE_CLASSIFICATION,
-            docker_image=NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
+            docker_image=NyunDocker(
+                DockerRepository.NYUN_ZERO_ADAPT, DockerTag.PUBLIC_LATEST
+            ),
             platforms=[Platform.HUGGINGFACE, Platform.TIMM],
             extension=WorkspaceExtension.ADAPT,
         ),

@@ -156,11 +156,11 @@ class DockerRepository(StrEnum):
 
     # public
     NYUN_ZERO_VISION = "nyunadmin/nyunzero_kompress_vision"
-    NYUN_ZERO_TEXT_GENERATION = "nyunadmin/nyunzero_kompress_text_generation"
-    NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM = (
-        "nyunadmin/nyun_zero_text_generation_tensorrt_llm"
-    )
+    NYUN_ZERO_TEXT_GENERATION = "nyunadmin/nyunzero_text_generation"
     NYUN_ZERO_ADAPT = "nyunadmin/nyunzero_adapt"
+    NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM = (
+        "nyunadmin/nyunzero_text_generation_tensorrt_llm"
+    )
 
 
 class DockerTag(StrEnum):
@@ -243,7 +243,8 @@ class DockerPath(Enum):
     WORKSPACE = Path("/workspace")
     USER_DATA = Path("/user_data")
 
-    WORK_DIR = Path("/nyun")
+    NYUN_SERVICES = Path("/nyun")
+
     CUSTOM_DATA = Path("/custom_data")
 
     @staticmethod
@@ -262,6 +263,10 @@ class DockerPath(Enum):
     def get_script_path_in_docker(script_path: Path):
         # maps /some/path/to/script.extension:/scripts/script.extension
         return DockerPath.SCRIPT.value / script_path.name
+
+    @staticmethod
+    def get_service_path_in_docker(service_name: str):
+        return DockerPath.NYUN_SERVICES.value / service_name
 
 
 class DockerCommand(StrEnum):
