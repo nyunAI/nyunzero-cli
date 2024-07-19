@@ -129,30 +129,26 @@ class KompressVisionExtension(BaseExtension):
 
     extension_type = WorkspaceExtension.VISION
     docker_images = {
-        NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS),
         NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.KOMPRESS_MMRAZOR),
+        NyunDocker(DockerRepository.NYUN_ZERO_VISION, DockerTag.PUBLIC_LATEST)
     }
     extension_metadata = {
-        # "torchvision.FXQuant": "main_kompress"
         DockerMetadata(
             algorithm=Algorithm.FXQUANT,
             docker_image=NyunDocker(
-                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+                DockerRepository.NYUN_ZERO_VISION, DockerTag.PUBLIC_LATEST
             ),
             platforms=[Platform.TORCHVISION],
             extension=WorkspaceExtension.VISION,
         ),
-        # "timm.KDTransfer": "main_kompress",
         DockerMetadata(
             algorithm=Algorithm.KDTRANSFER,
             docker_image=NyunDocker(
-                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+                DockerRepository.NYUN_ZERO_VISION, DockerTag.PUBLIC_LATEST
             ),
             platforms=[Platform.TIMM],
             extension=WorkspaceExtension.VISION,
         ),
-        # "mmyolo.MMRazor": "mmrazor",
-        # "mmdet.MMRazor": "mmrazor",
         DockerMetadata(
             algorithm=Algorithm.MMRAZOR,
             docker_image=NyunDocker(
@@ -161,10 +157,6 @@ class KompressVisionExtension(BaseExtension):
             platforms=[Platform.MMYOLO, Platform.MMDET],
             extension=WorkspaceExtension.VISION,
         ),
-        # "mmseg.MMRazorDistill": "mmrazor",
-        # "mmpose.MMRazorDistill": "mmrazor",
-        # "mmdet.MMRazorDistill": "mmrazor",
-        # "mmyolo.MMRazorDistill": "mmrazor",
         DockerMetadata(
             algorithm=Algorithm.MMRAZORDISTILL,
             docker_image=NyunDocker(
@@ -178,61 +170,41 @@ class KompressVisionExtension(BaseExtension):
             ],
             extension=WorkspaceExtension.VISION,
         ),
-        # "mmdet.NNCF": "mmrazor",
         DockerMetadata(
             algorithm=Algorithm.NNCF,
             docker_image=NyunDocker(
-                DockerRepository.NYUN_KOMPRESS, DockerTag.KOMPRESS_MMRAZOR
+                DockerRepository.NYUN_ZERO_VISION, DockerTag.KOMPRESS_MMRAZOR
             ),
             platforms=[
                 Platform.MMDET,
             ],
             extension=WorkspaceExtension.VISION,
         ),
-        # "torchvision.NNCF": "main_kompress",
         DockerMetadata(
             algorithm=Algorithm.NNCF,
             docker_image=NyunDocker(
-                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+                DockerRepository.NYUN_ZERO_VISION, DockerTag.PUBLIC_LATEST
             ),
             platforms=[
                 Platform.TORCHVISION,
             ],
             extension=WorkspaceExtension.VISION,
         ),
-        # "timm.NNCFQAT": "main_kompress",
         DockerMetadata(
             algorithm=Algorithm.NNCFQAT,
             docker_image=NyunDocker(
-                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+                DockerRepository.NYUN_ZERO_VISION, DockerTag.PUBLIC_LATEST
             ),
             platforms=[
                 Platform.TIMM,
             ],
             extension=WorkspaceExtension.VISION,
         ),
-        # "mmdet.NNCFQAT": "mmrazor",
-        # "mmseg.NNCFQAT": "mmrazor",
-        DockerMetadata(
-            algorithm=Algorithm.NNCFQAT,
-            docker_image=NyunDocker(
-                DockerRepository.NYUN_KOMPRESS, DockerTag.KOMPRESS_MMRAZOR
-            ),
-            platforms=[
-                Platform.MMDET,
-                Platform.MMSEG,
-            ],
-            extension=WorkspaceExtension.VISION,
-        ),
-        # "mmdet.ONNXQuant": "main_kompress",
-        # "mmyolo.ONNXQuant": "main_kompress",
-        # "mmseg.ONNXQuant": "main_kompress",
-        # "mmpose.ONNXQuant": "main_kompress",
-        # "timm.ONNXQuant": "main_kompress",
+
         DockerMetadata(
             algorithm=Algorithm.ONNXQUANT,
             docker_image=NyunDocker(
-                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+                DockerRepository.NYUN_ZERO_VISION, DockerTag.PUBLIC_LATEST
             ),
             platforms=[
                 Platform.MMDET,
@@ -243,15 +215,10 @@ class KompressVisionExtension(BaseExtension):
             ],
             extension=WorkspaceExtension.VISION,
         ),
-        # "mmyolo.TensorRT": "main_kompress",
-        # "mmdet.TensorRT": "main_kompress",
-        # "torchvision.TensorRT": "main_kompress",
-        # "mmpose.TensorRT": "main_kompress",
-        # "mmseg.TensorRT": "main_kompress",
         DockerMetadata(
             algorithm=Algorithm.TENSORRT,
             docker_image=NyunDocker(
-                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+                DockerRepository.NYUN_KOMPRESS, DockerTag.PUBLIC_LATEST
             ),
             platforms=[
                 Platform.MMDET,
@@ -262,12 +229,10 @@ class KompressVisionExtension(BaseExtension):
             ],
             extension=WorkspaceExtension.VISION,
         ),
-        # "timm.TorchPrune": "main_kompress",
-        # "torchvision.TorchPrune": "main_kompress",
         DockerMetadata(
             algorithm=Algorithm.TORCHPRUNE,
             docker_image=NyunDocker(
-                DockerRepository.NYUN_KOMPRESS, DockerTag.MAIN_KOMPRESS
+                DockerRepository.NYUN_KOMPRESS, DockerTag.PUBLIC_LATEST
             ),
             platforms=[Platform.TIMM, Platform.TORCHVISION],
             extension=WorkspaceExtension.VISION,
