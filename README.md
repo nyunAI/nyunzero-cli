@@ -50,7 +50,7 @@ Once your workspace is initialized, you can run scripts using the `run` command 
 nyun run [SCRIPT_PATH]
 ```
 
-- `SCRIPT_PATH`: The path to the YAML or JSON script file you want to run.
+- `SCRIPT_PATH`: The path(s) to the YAML or JSON script file you want to run.
 
 Example:
 
@@ -59,6 +59,12 @@ nyun run ~/my-script.yaml
 ```
 
 This command runs the script located at `~/my-script.yaml` within your initialized workspace.
+
+To run chained scripts, you can provide multiple script paths in the order of execution:
+
+```shell
+nyun run ~/my-script1.yaml ~/my-script2.yaml
+```
 
 ### Checking Version
 
