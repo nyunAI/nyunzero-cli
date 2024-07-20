@@ -22,8 +22,12 @@ setup(
     description="A CLI package with 'init' and 'run' commands",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/nyunai/zero",
+    url="https://github.com/nyunAI/nyunzero-cli.git",
     packages=find_packages(),
+    package_data={
+        "zero": ["services/*"],
+    },
+    include_package_data=True,
     python_requires=">=3.8, <=3.11",
     install_requires=install_requires,
     entry_points={

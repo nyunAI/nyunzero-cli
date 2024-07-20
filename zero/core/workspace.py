@@ -1,7 +1,7 @@
 import configparser
 
 from pathlib import Path
-from typing import Dict, AnyStr, Union, Tuple
+from typing import Dict, AnyStr, Union, Tuple, Optional
 
 from zero.core.constants import WorkspaceExtension, WorkspaceMessage, WorkspaceSpec
 from zero.core.extension import (
@@ -237,6 +237,9 @@ class Workspace:
         ext_obj.install()
         return ext_obj
 
+    def get_workspace_env_file(self) -> Optional[Path]:
+        return WorkspaceSpec.get_env_file_path(self.workspace_path)
+
 
 def get_workspace_and_custom_data_paths(
     workspace: Union[Path, AnyStr, None], custom_data: Union[Path, AnyStr, None]
@@ -266,6 +269,7 @@ def get_workspace_and_custom_data_paths(
 
     workspace_path = Path(workspace)
     custom_data_path = Path(custom_data)
+    custom_data_path.mkdir(parents=True, exist_ok=True)
 
     if config:
         extensions = WorkspaceExtension.get_extensions_list(
