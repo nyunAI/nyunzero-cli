@@ -7,4 +7,4 @@ SERVICES = ROOT / "services"
 NYUNTAM = "nyuntam"
 NYUNTAM_ADAPT = "nyuntam_adapt"
 
-__all__ = ["NYUNTAM", "NYUNTAM_ADAPT"]
+__all__ = ["NYUNTAM"]

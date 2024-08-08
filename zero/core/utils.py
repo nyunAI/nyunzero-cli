@@ -255,7 +255,7 @@ def run_docker_container(
                 source=str(NyunServices),
                 target=str(DockerPath.NYUN_SERVICES.value),
                 type="bind",
-                read_only=True,
+                read_only=False,
             ),
         ]
 
@@ -275,7 +275,7 @@ def run_docker_container(
             command=command,
             image=str(image[0]),
             device_requests=device_requests,
-            detach=True,
+            detach=False,
             mounts=mounts,
             remove=True,
             working_dir=str(working_dir),
@@ -343,10 +343,9 @@ def get_service_from_metadata_extension_type(extension_type: WorkspaceExtension)
     if extension_type in {
         WorkspaceExtension.TEXT_GENERATION,
         WorkspaceExtension.VISION,
+        WorkspaceExtension.ADAPT,
     }:
         service = NyunService_Kompress
-    elif extension_type in {WorkspaceExtension.ADAPT}:
-        service = NyunService_Adapt
 
     if service is None:
         raise ValueError(f"Invalid extension type: {extension_type}")
