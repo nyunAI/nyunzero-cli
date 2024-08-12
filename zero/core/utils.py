@@ -254,7 +254,7 @@ def run_docker_container(
                 source=str(NyunServices),
                 target=str(DockerPath.NYUN_SERVICES.value),
                 type="bind",
-                read_only=False,
+                read_only=True,
             ),
         ]
 
