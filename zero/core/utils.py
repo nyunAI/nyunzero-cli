@@ -24,7 +24,7 @@ from zero import (
     SERVICES as NyunServices,
 )
 from docker.types import Mount, DeviceRequest
-from docker.errors import NotFound, ImageNotFound
+from docker.errors import NotFound, ImageNotFound, ContainerError
 from pathlib import Path
 
 
@@ -282,6 +282,8 @@ def run_docker_container(
         )
         return running_container
 
+    except ContainerError as e:
+        raise e
     except Exception as e:
         logger.error(f"Container {image[0]} failed to run with command {command}: {e}")
         raise Exception from e
