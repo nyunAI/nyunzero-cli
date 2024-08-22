@@ -20,8 +20,7 @@ from zero.core.constants import (
     EMPTY_STRING,
 )
 from zero import (
-    NYUNTAM as NyunService_Kompress,
-    NYUNTAM_ADAPT as NyunService_Adapt,
+    NYUNTAM as NyunService,
     SERVICES as NyunServices,
 )
 from docker.types import Mount, DeviceRequest
@@ -275,7 +274,7 @@ def run_docker_container(
             command=command,
             image=str(image[0]),
             device_requests=device_requests,
-            detach=True,
+            detach=False,
             mounts=mounts,
             remove=True,
             working_dir=str(working_dir),
@@ -343,10 +342,9 @@ def get_service_from_metadata_extension_type(extension_type: WorkspaceExtension)
     if extension_type in {
         WorkspaceExtension.TEXT_GENERATION,
         WorkspaceExtension.VISION,
+        WorkspaceExtension.ADAPT,
     }:
-        service = NyunService_Kompress
-    elif extension_type in {WorkspaceExtension.ADAPT}:
-        service = NyunService_Adapt
+        service = NyunService
 
     if service is None:
         raise ValueError(f"Invalid extension type: {extension_type}")

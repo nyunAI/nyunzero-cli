@@ -218,11 +218,11 @@ class Algorithm(StrEnum):
     # NOTE: The following values are essentially "TASK" values in adapt
     # TODO: Use a constant set of keys post standardization of hyperparams across Nyun
 
-    DETECTION = "detection"
+    DETECTION = "object_detection"
     IMAGE_CLASSIFICATION = "image_classification"
-    POSE_DETECTION = "pose_detection"
+    POSE_DETECTION = "pose_estimation"
     QUESTION_ANSWERING = "question_answering"
-    SEGMENTATION = "segmentation"
+    SEGMENTATION = "image_segmentation"
     SEQ2SEQ_TASKS = "Seq2Seq_tasks"
     TEXT_CLASSIFICATION = "text_classification"
     TEXT_GENERATION = "text_generation"
@@ -271,8 +271,7 @@ class DockerPath(Enum):
 
 class DockerCommand(StrEnum):
 
-    RUN = "python main.py --yaml_path {script_path}"
-
+    RUN = "python run_dist.py --yaml_path {script_path}"
     @staticmethod
     def get_run_command(script_path: Union[Path, str]):
         return DockerCommand.RUN.format(script_path=script_path)
