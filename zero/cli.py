@@ -8,7 +8,8 @@ from zero.core.workspace import (
     get_workspace_and_custom_data_paths,
 )
 
-from docker.models.containers import ExecResult, Container
+from docker.models.containers import Container
+from docker.errors import ContainerError
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from typing import List
 
@@ -140,6 +141,9 @@ def run(
                     completed=True,
                     refresh=True,
                 )
+    except ContainerError as e:
+        typer.echo(err=True, message=e.stderr)
+        raise typer.Abort()
     except Exception as e:
         typer.echo(e)
         raise typer.Abort()

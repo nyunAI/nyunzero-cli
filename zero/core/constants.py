@@ -272,6 +272,7 @@ class DockerPath(Enum):
 class DockerCommand(StrEnum):
 
     RUN = "python run_dist.py --yaml_path {script_path}"
+
     @staticmethod
     def get_run_command(script_path: Union[Path, str]):
         return DockerCommand.RUN.format(script_path=script_path)

@@ -130,7 +130,7 @@ class KompressVisionExtension(BaseExtension):
     extension_type = WorkspaceExtension.VISION
     docker_images = {
         NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.KOMPRESS_MMRAZOR),
-        NyunDocker(DockerRepository.NYUN_ZERO_VISION, DockerTag.PUBLIC_LATEST)
+        NyunDocker(DockerRepository.NYUN_ZERO_VISION, DockerTag.PUBLIC_LATEST),
     }
     extension_metadata = {
         DockerMetadata(
@@ -200,7 +200,6 @@ class KompressVisionExtension(BaseExtension):
             ],
             extension=WorkspaceExtension.VISION,
         ),
-
         DockerMetadata(
             algorithm=Algorithm.ONNXQUANT,
             docker_image=NyunDocker(
