@@ -148,12 +148,6 @@ class WorkspaceSpec(StrEnum):
 
 
 class DockerRepository(StrEnum):
-    # kompress
-    NYUN_KOMPRESS = "nyunadmin/nyun_kompress"
-
-    # adapt
-    NYUN_ADAPT = "nyunadmin/adapt"
-
     # public
     NYUN_ZERO_VISION = "nyunadmin/nyunzero_kompress_vision"
     NYUN_ZERO_TEXT_GENERATION = "nyunadmin/nyunzero_text_generation"

@@ -298,8 +298,7 @@ class AdaptExtension(BaseExtension):
     extension_type = WorkspaceExtension.ADAPT
     docker_images = {
         # public
-        NyunDocker(DockerRepository.NYUN_ZERO_ADAPT, DockerTag.PUBLIC_LATEST),
-        NyunDocker(DockerRepository.NYUN_ADAPT, DockerTag.ADAPT),
+        NyunDocker(DockerRepository.NYUN_ZERO_ADAPT, DockerTag.PUBLIC_LATEST)
     }
     extension_metadata = {
         # huggingface - 'text_classification'
