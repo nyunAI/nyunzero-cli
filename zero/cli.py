@@ -133,6 +133,7 @@ def run(
                     file_path=file_path, workspace=workspace
                 )
                 running_container.wait()
+                print(f"LOGS:\n{running_container.logs()}")
                 # TODO: add checks on container if success or failed. use container.exec_run if needed
                 progress.update(
                     task,

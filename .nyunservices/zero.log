@@ -1,0 +1,181 @@
+2024-12-04 11:26:22,710 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-04 11:27:05,333 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-04 13:23:05,851 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-04 13:23:06,510 - zero.core.utils - INFO - Running nyunadmin/nyunzero_text_generation_tensorrt_llm:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-04 13:23:06,934 - zero.core.utils - ERROR - Container nyunadmin/nyunzero_text_generation_tensorrt_llm:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 500 Server Error for http+docker://localhost/v1.47/containers/619a4771b4d6afea0276b969dadb3895545d4365cea3bfdf22ad7c0efab544ed/start: Internal Server Error ("could not select device driver "" with capabilities: [[gpu]]")
+2024-12-04 13:28:15,511 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-04 13:28:15,968 - zero.core.utils - INFO - Running nyunadmin/nyunzero_text_generation_tensorrt_llm:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-04 13:28:16,226 - zero.core.utils - ERROR - Container nyunadmin/nyunzero_text_generation_tensorrt_llm:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 500 Server Error for http+docker://localhost/v1.47/containers/5b971a91eaacd427c423c24f8f61d1a00172bedaed7b6599244f5e5d732fce1c/start: Internal Server Error ("could not select device driver "" with capabilities: [[gpu]]")
+2024-12-04 13:47:31,397 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-04 13:47:31,841 - zero.core.utils - INFO - Running nyunadmin/nyunzero_text_generation_tensorrt_llm:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-04 13:47:32,106 - zero.core.utils - ERROR - Container nyunadmin/nyunzero_text_generation_tensorrt_llm:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 500 Server Error for http+docker://localhost/v1.47/containers/b86a18cdeeba9de6b4c54b13ea6929bc01f7d98f49ecf2bd9315be1b734c63ae/start: Internal Server Error ("could not select device driver "" with capabilities: [[gpu]]")
+2024-12-04 13:47:44,135 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-04 13:47:44,546 - zero.core.utils - INFO - Running nyunadmin/nyunzero_text_generation_tensorrt_llm:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-04 13:47:44,787 - zero.core.utils - ERROR - Container nyunadmin/nyunzero_text_generation_tensorrt_llm:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 500 Server Error for http+docker://localhost/v1.47/containers/a5eabde5ce055bb0489b6ab21616cbb59d1ccc3b49572d5a40c235b2dcf59fcf/start: Internal Server Error ("could not select device driver "" with capabilities: [[gpu]]")
+2024-12-04 13:49:22,687 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-04 13:49:23,150 - zero.core.utils - INFO - Running nyunadmin/nyunzero_text_generation:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-04 13:49:23,389 - zero.core.utils - ERROR - Container nyunadmin/nyunzero_text_generation:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 500 Server Error for http+docker://localhost/v1.47/containers/5993f3be757471f7654156e02761eb3ac41303242e1b82c75d86c6ecbe45dac1/start: Internal Server Error ("could not select device driver "" with capabilities: [[gpu]]")
+2024-12-04 13:49:33,600 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-04 13:49:33,994 - zero.core.utils - INFO - Running nyunadmin/nyunzero_text_generation:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-04 13:49:34,231 - zero.core.utils - ERROR - Container nyunadmin/nyunzero_text_generation:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 500 Server Error for http+docker://localhost/v1.47/containers/8bfa13aa8ea283dfbc86f8254352325fc1e05d346142678546d3bc3250fac9e1/start: Internal Server Error ("could not select device driver "" with capabilities: [[gpu]]")
+2024-12-04 13:50:03,070 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-04 13:50:03,465 - zero.core.extension - ERROR - 'AQLM' is not a valid Algorithm
+2024-12-05 06:23:51,508 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-05 06:23:51,917 - zero.core.utils - INFO - Running nyunadmin/nyunzero_text_generation:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-05 06:23:52,137 - zero.core.utils - ERROR - Container nyunadmin/nyunzero_text_generation:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 500 Server Error for http+docker://localhost/v1.47/containers/52aba3f1a4825bd4dc506d611d3a22e7e4b1036e9cb4cea07f00e8f135bae23b/start: Internal Server Error ("could not select device driver "" with capabilities: [[gpu]]")
+2024-12-05 06:24:44,159 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-05 06:24:44,591 - zero.core.utils - INFO - Running nyunadmin/nyun_kompress:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-05 06:24:44,678 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-05 06:26:29,533 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-05 06:26:29,952 - zero.core.utils - INFO - Running nyunadmin/nyun_kompress:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-05 06:26:30,035 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-05 06:26:42,525 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-05 06:26:42,925 - zero.core.utils - INFO - Running nyunadmin/nyun_kompress:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-05 06:26:43,016 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-06 10:23:52,107 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-06 19:42:41,706 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-06 19:42:42,266 - zero.core.utils - INFO - Running nyunadmin/nyun_kompress:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-06 19:42:42,359 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-07 11:54:57,540 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 11:55:07,718 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 11:55:08,122 - zero.core.utils - INFO - Running nyunadmin/nyun_kompress:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-07 11:55:08,211 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-07 11:55:49,041 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 11:55:49,434 - zero.core.utils - INFO - Running nyunadmin/nyun_kompress:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-07 11:55:49,507 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-07 11:56:06,184 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 11:56:06,631 - zero.core.utils - INFO - Running nyunadmin/nyun_kompress:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-07 11:56:06,708 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-07 11:56:44,646 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 11:56:45,031 - zero.core.utils - INFO - Running nyunadmin/nyun_kompress:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-07 11:56:45,108 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-07 12:06:35,820 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 12:06:36,288 - zero.core.utils - INFO - Running nyunadmin/nyun_kompress:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-07 12:06:36,380 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-07 12:06:53,081 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 12:06:53,475 - zero.core.utils - INFO - Running nyunadmin/nyun_kompress:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-07 12:06:53,593 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-07 12:07:25,843 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 12:07:26,244 - zero.core.utils - INFO - Running nyunadmin/nyun_kompress:v0.1 with command: python run_dist.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-07 12:07:26,320 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-07 12:07:49,609 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 12:07:50,156 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-07 15:37:22,946 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 15:37:23,446 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-07 15:38:44,612 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 15:38:45,136 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-07 15:39:09,876 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 15:39:10,350 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-07 19:39:38,645 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 19:39:39,155 - zero.core.utils - ERROR - Container nyunadmin/nyun_kompress:v0.1 failed to run with command python run_dist.py --yaml_path /scripts/tensorrtllm.yaml: 404 Client Error for http+docker://localhost/v1.47/images/create?tag=v0.1&fromImage=nyunadmin%2Fnyun_kompress: Not Found ("manifest for nyunadmin/nyun_kompress:v0.1 not found: manifest unknown: manifest unknown")
+2024-12-07 19:42:43,788 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 21:48:52,180 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 21:51:50,970 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-07 21:56:21,344 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-08 12:04:47,687 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 13:44:03,403 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 13:44:11,630 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 13:44:31,149 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 13:47:15,606 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 13:47:20,215 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 15:04:42,792 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 16:17:41,825 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 16:17:47,520 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 16:17:47,936 - zero.core.utils - INFO - Running nyunadmin/nyunzero_adapt:v0.1 with command: python main.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-10 16:18:27,906 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 16:18:28,357 - zero.core.utils - INFO - Running nyunadmin/nyunzero_adapt:v0.1 with command: python main.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-10 16:19:22,507 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 16:19:22,957 - zero.core.utils - INFO - Running nyunadmin/nyunzero_adapt:v0.1 with command: python main.py --yaml_path /scripts/tensorrtllm.yaml
+Mounts: [{'Target': '/user_data', 'Source': '/home/ishan/nyunzero-cli', 'Type': 'bind', 'ReadOnly': False}, {'Target': '/custom_data', 'Source': '/home/ishan/nyunzero-cli/custom_data', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/scripts/tensorrtllm.yaml', 'Source': '/home/ishan/nyunzero-cli/tensorrtllm.yaml', 'Type': 'bind', 'ReadOnly': True}, {'Target': '/nyun', 'Source': '/home/ishan/nyunzero-cli/zero/services', 'Type': 'bind', 'ReadOnly': True}]
+Environment: None
+Device Requests: [{'Driver': '', 'Count': 0, 'DeviceIDs': ['all'], 'Capabilities': [['gpu']], 'Options': {}}]
+Working Dir: /nyun/nyuntam
+2024-12-10 16:20:44,713 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 16:21:03,347 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 16:21:35,048 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 16:40:19,448 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 16:40:50,424 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 16:41:40,106 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 16:53:31,089 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 16:53:59,199 - zero.core.workspace - INFO - Workspace initialized.
+2024-12-10 17:11:40,892 - zero.core.workspace - INFO - Workspace initialized.

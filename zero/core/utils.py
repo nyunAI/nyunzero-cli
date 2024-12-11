@@ -224,9 +224,11 @@ def run_docker_container(
         client = get_docker_client()
         script_path = DockerPath.get_script_path_in_docker(script_path=script)
         command = DockerCommand.get_run_command(script_path=script_path)
+        print(f'WE GOT THIS FORMATTED:  {command}')
         service = get_service_from_metadata_extension_type(
             extension_type=metadata.extension_type
         )
+        print(f'service: {service}')
         mounts = [
             # Mount workspace dir
             Mount(
@@ -266,20 +268,23 @@ def run_docker_container(
 
         device_requests = [DeviceRequest(device_ids=["all"], capabilities=[["gpu"]])]
 
-        working_dir = DockerPath.get_service_path_in_docker(service_name=service)
-        logger.info(
-            f"Running {image[0]} with command: {command}\nMounts: {mounts}\nEnvironment: {environment}\nDevice Requests: {device_requests}\nWorking Dir: {working_dir}"
+        # working_dir = DockerPath.get_service_path_in_docker(service_name=service)
+        working_dir = Path("/workspace/")
+        print(
+            f"Running {image[0]} with command: {command}\n\n\nMounts: {mounts}\n\n\nEnvironment: {environment}\n\n\nDevice Requests: {device_requests}\n\n\nWorking Dir: {working_dir}"
         )
         running_container: Container = client.containers.run(
             command=command,
             image=str(image[0]),
             device_requests=device_requests,
-            detach=False,
+            detach=True,
             mounts=mounts,
             remove=True,
             working_dir=str(working_dir),
             environment=environment,
         )
+        print(f"-"*100)
+        # print(running_container)
         return running_container
 
     except ContainerError as e:

@@ -1,0 +1,325 @@
+12/10/2024 23-41-01 - INFO - tasks.base_trainer - Experiment Arguments: {'TASK': 'text_generation', 'subtask': None, 'packing': True, 'dataset_text_field': 'text', 'max_seq_length': 512, 'flash_attention2': False, 'blocksize': 128, 'cuda_id': '0', 'auto_select_modules': True, 'OUTPUT_DIR': '/user_data/jobs/Adapt/100', 'OVERWRITE_OUTPUT_DIR': False, 'LOGGING_PATH': '/user_data/logs/Adapt/100', 'MERGE_ADAPTERS': False, 'DATASET_ARGS': {'DATASET': 'mlabonne/guanaco-llama2-1k', 'DATA_VERSION': '1.0', 'DATA_SPLIT': 0.2, 'TRAIN_DIR': '', 'VAL_DIR': '', 'TEST_DIR': '', 'MAX_TRAIN_SAMPLES': None, 'MAX_EVAL_SAMPLES': None, 'CUSTOM_DATASET_PATH': None, 'DATASET_CONFIG': {}, 'DATASET_FORMAT': None, 'FORMAT_NAMES': 'text', 'FORMAT_STRING': None, 'input_column': 'context', 'input_question_column': 'question', 'target_column': 'answers', 'squad_v2_format': False}, 'MODEL_ARGS': {'MODEL': 'Llama-2', 'MODEL_PATH': 'meta-llama/Meta-Llama-3-8B', 'MODEL_VERSION': '1.0', 'CACHE_BOOL': False, 'MODEL_CHECKPOINT': '', 'LOCAL_MODEL_PATH': None}, 'TRAINING_ARGS': {'SEED': 56, 'DO_TRAIN': True, 'DO_EVAL': False, 'NUM_WORKERS': 4, 'BATCH_SIZE': 4, 'EPOCHS': 0.01, 'STEPS': 100, 'OPTIMIZER': 'paged_adamw_32bit', 'LR': 0.0002, 'SCHEDULER_TYPE': 'constant', 'WEIGHT_DECAY': 0.001, 'BETA1': 0.9, 'BETA2': 0.999, 'ADAM_EPS': '1e-8', 'INTERVAL': 'steps', 'INTERVAL_STEPS': 50, 'NO_OF_CHECKPOINTS': 5, 'FP16': True, 'REMOVE_UNUSED_COLUMNS': True, 'RESUME_FROM_CHECKPOINT': False, 'GRADIENT_ACCUMULATION_STEPS': 1, 'GRADIENT_CHECKPOINTING': True, 'GROUP_BY_LENGTH': True, 'T_MAX': 100, 'MILESTONES': None, 'GAMMA': 0.1, 'WARMUP': True, 'WARMUP_ITERS': 50, 'WARMUP_RATIO': 0.1, 'BEGIN': 0, 'END': 10}, 'FINE_TUNING_ARGS': {'LAST_LAYER_TUNING': True, 'FULL_FINE_TUNING': False}, 'PEFT_METHOD': 'LoRA', 'DoRA_CONFIG': {'r': 2, 'target_modules': None, 'lora_alpha': 8, 'lora_dropout': 0.0, 'fan_in_fan_out': False, 'bias': 'none', 'use_rslora': False, 'modules_to_save': None, 'init_lora_weights': True, 'layers_to_transform': None, 'layers_pattern': None, 'rank_pattern': <dataclasses._MISSING_TYPE object at 0x7ede7191fe80>, 'alpha_pattern': <dataclasses._MISSING_TYPE object at 0x7ede7191cf70>, 'megatron_config': None, 'megatron_core': 'megatron.core', 'use_dora': True, 'layer_replication': None, 'peft_type': 'LoRA'}, 'SSF_CONFIG': {'peft_type': 'LoRA'}, 'LoRA_CONFIG': {'r': 2, 'target_modules': None, 'lora_alpha': 8, 'lora_dropout': 0.0, 'fan_in_fan_out': False, 'bias': 'none', 'use_rslora': False, 'modules_to_save': None, 'init_lora_weights': True, 'layers_to_transform': None, 'layers_pattern': None, 'rank_pattern': <dataclasses._MISSING_TYPE object at 0x7ede7191f370>, 'alpha_pattern': <dataclasses._MISSING_TYPE object at 0x7ede7191c850>, 'megatron_config': None, 'megatron_core': 'megatron.core', 'use_dora': False, 'layer_replication': None, 'peft_type': 'LoRA'}, 'BNB_CONFIG': {'USE_4BIT': {'load_in_4bit': True, 'bnb_4bit_compute_dtype': 'float16', 'bnb_4bit_quant_type': 'nf4', 'bnb_4bit_use_double_quant': False, 'bnb_4bit_quant_storage': 'float16'}, 'USE_8BIT': {'load_in_8bit': False, 'llm_int8_threshold': 6.0, 'llm_int8_skip_modules': None, 'llm_int8_enable_fp32_cpu_offload': False, 'llm_int8_has_fp16_weight': False}}, 'SAVE_METHOD': 'state_dict', 'max_input_length': 128, 'max_target_length': 128, 'eval_metric': 'rogue', 'source_lang': '', 'target_lang': '', 'PREFIX': '', 'max_answer_length': 30, 'doc_stride': 128, 'max_length': 384, 'Library': 'Huggingface', 'DDP': False, 'num_nodes': 1, 'FSDP': False}
+12/10/2024 23-41-01 - INFO - tasks.base_trainer - CUSTOM DATA IS NOT GIVEN, DATA IS mlabonne/guanaco-llama2-1k
+12/10/2024 23-41-01 - ERROR - failure - You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Meta-Llama-3-8B.
+401 Client Error. (Request ID: Root=1-67586f1d-09186d935ad3f63465bf8624;443ea2e6-7a1a-44c4-aa1a-9f1d1fbbe1f6)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_errors.py", line 304, in hf_raise_for_status
+    response.raise_for_status()
+  File "/opt/conda/lib/python3.10/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 119, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1403, in hf_hub_download
+    raise head_call_error
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1261, in hf_hub_download
+    metadata = get_hf_file_metadata(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 119, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1674, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 369, in _request_wrapper
+    response = _request_wrapper(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 393, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_errors.py", line 321, in hf_raise_for_status
+    raise GatedRepoError(message, response) from e
+huggingface_hub.utils._errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-67586f1d-09186d935ad3f63465bf8624;443ea2e6-7a1a-44c4-aa1a-9f1d1fbbe1f6)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/run.py", line 69, in <module>
+    name = train_llama.adapt_model()
+  File "/workspace/tasks/base_trainer.py", line 507, in adapt_model
+    self.model, self.processor, self.config = self.prepare_model()
+  File "/workspace/tasks/text_generation.py", line 115, in prepare_model
+    config = AutoConfig.from_pretrained(self.model_path)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 928, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/configuration_utils.py", line 631, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/configuration_utils.py", line 686, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/hub.py", line 416, in cached_file
+    raise EnvironmentError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Meta-Llama-3-8B.
+401 Client Error. (Request ID: Root=1-67586f1d-09186d935ad3f63465bf8624;443ea2e6-7a1a-44c4-aa1a-9f1d1fbbe1f6)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+12/10/2024 23-41-01 - INFO - failure - JOB FAILED
+12/10/2024 23-41-50 - INFO - tasks.base_trainer - Experiment Arguments: {'TASK': 'text_generation', 'subtask': None, 'packing': True, 'dataset_text_field': 'text', 'max_seq_length': 512, 'flash_attention2': False, 'blocksize': 128, 'cuda_id': '0', 'auto_select_modules': True, 'OUTPUT_DIR': '/user_data/jobs/Adapt/100', 'OVERWRITE_OUTPUT_DIR': False, 'LOGGING_PATH': '/user_data/logs/Adapt/100', 'MERGE_ADAPTERS': False, 'DATASET_ARGS': {'DATASET': 'mlabonne/guanaco-llama2-1k', 'DATA_VERSION': '1.0', 'DATA_SPLIT': 0.2, 'TRAIN_DIR': '', 'VAL_DIR': '', 'TEST_DIR': '', 'MAX_TRAIN_SAMPLES': None, 'MAX_EVAL_SAMPLES': None, 'CUSTOM_DATASET_PATH': None, 'DATASET_CONFIG': {}, 'DATASET_FORMAT': None, 'FORMAT_NAMES': 'text', 'FORMAT_STRING': None, 'input_column': 'context', 'input_question_column': 'question', 'target_column': 'answers', 'squad_v2_format': False}, 'MODEL_ARGS': {'MODEL': 'Llama-2', 'MODEL_PATH': 'meta-llama/Meta-Llama-3-8B', 'MODEL_VERSION': '1.0', 'CACHE_BOOL': False, 'MODEL_CHECKPOINT': '', 'LOCAL_MODEL_PATH': None}, 'TRAINING_ARGS': {'SEED': 56, 'DO_TRAIN': True, 'DO_EVAL': False, 'NUM_WORKERS': 4, 'BATCH_SIZE': 4, 'EPOCHS': 0.01, 'STEPS': 100, 'OPTIMIZER': 'paged_adamw_32bit', 'LR': 0.0002, 'SCHEDULER_TYPE': 'constant', 'WEIGHT_DECAY': 0.001, 'BETA1': 0.9, 'BETA2': 0.999, 'ADAM_EPS': '1e-8', 'INTERVAL': 'steps', 'INTERVAL_STEPS': 50, 'NO_OF_CHECKPOINTS': 5, 'FP16': True, 'REMOVE_UNUSED_COLUMNS': True, 'RESUME_FROM_CHECKPOINT': False, 'GRADIENT_ACCUMULATION_STEPS': 1, 'GRADIENT_CHECKPOINTING': True, 'GROUP_BY_LENGTH': True, 'T_MAX': 100, 'MILESTONES': None, 'GAMMA': 0.1, 'WARMUP': True, 'WARMUP_ITERS': 50, 'WARMUP_RATIO': 0.1, 'BEGIN': 0, 'END': 10}, 'FINE_TUNING_ARGS': {'LAST_LAYER_TUNING': True, 'FULL_FINE_TUNING': False}, 'PEFT_METHOD': 'LoRA', 'DoRA_CONFIG': {'r': 2, 'target_modules': None, 'lora_alpha': 8, 'lora_dropout': 0.0, 'fan_in_fan_out': False, 'bias': 'none', 'use_rslora': False, 'modules_to_save': None, 'init_lora_weights': True, 'layers_to_transform': None, 'layers_pattern': None, 'rank_pattern': <dataclasses._MISSING_TYPE object at 0x7db26ebabfd0>, 'alpha_pattern': <dataclasses._MISSING_TYPE object at 0x7db26ebabee0>, 'megatron_config': None, 'megatron_core': 'megatron.core', 'use_dora': True, 'layer_replication': None, 'peft_type': 'LoRA'}, 'SSF_CONFIG': {'peft_type': 'LoRA'}, 'LoRA_CONFIG': {'r': 2, 'target_modules': None, 'lora_alpha': 8, 'lora_dropout': 0.0, 'fan_in_fan_out': False, 'bias': 'none', 'use_rslora': False, 'modules_to_save': None, 'init_lora_weights': True, 'layers_to_transform': None, 'layers_pattern': None, 'rank_pattern': <dataclasses._MISSING_TYPE object at 0x7db26ebab280>, 'alpha_pattern': <dataclasses._MISSING_TYPE object at 0x7db26eba8850>, 'megatron_config': None, 'megatron_core': 'megatron.core', 'use_dora': False, 'layer_replication': None, 'peft_type': 'LoRA'}, 'BNB_CONFIG': {'USE_4BIT': {'load_in_4bit': True, 'bnb_4bit_compute_dtype': 'float16', 'bnb_4bit_quant_type': 'nf4', 'bnb_4bit_use_double_quant': False, 'bnb_4bit_quant_storage': 'float16'}, 'USE_8BIT': {'load_in_8bit': False, 'llm_int8_threshold': 6.0, 'llm_int8_skip_modules': None, 'llm_int8_enable_fp32_cpu_offload': False, 'llm_int8_has_fp16_weight': False}}, 'SAVE_METHOD': 'state_dict', 'max_input_length': 128, 'max_target_length': 128, 'eval_metric': 'rogue', 'source_lang': '', 'target_lang': '', 'PREFIX': '', 'max_answer_length': 30, 'doc_stride': 128, 'max_length': 384, 'Library': 'Huggingface', 'DDP': False, 'num_nodes': 1, 'FSDP': False}
+12/10/2024 23-41-50 - INFO - tasks.base_trainer - CUSTOM DATA IS NOT GIVEN, DATA IS mlabonne/guanaco-llama2-1k
+12/10/2024 23-41-51 - ERROR - failure - You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Meta-Llama-3-8B.
+401 Client Error. (Request ID: Root=1-67586f4f-79c6c3e1169a89e02b3ee85b;3680191c-8097-4fae-a301-88579f6407c0)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_errors.py", line 304, in hf_raise_for_status
+    response.raise_for_status()
+  File "/opt/conda/lib/python3.10/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 119, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1403, in hf_hub_download
+    raise head_call_error
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1261, in hf_hub_download
+    metadata = get_hf_file_metadata(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 119, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1674, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 369, in _request_wrapper
+    response = _request_wrapper(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 393, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_errors.py", line 321, in hf_raise_for_status
+    raise GatedRepoError(message, response) from e
+huggingface_hub.utils._errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-67586f4f-79c6c3e1169a89e02b3ee85b;3680191c-8097-4fae-a301-88579f6407c0)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/run.py", line 69, in <module>
+    name = train_llama.adapt_model()
+  File "/workspace/tasks/base_trainer.py", line 507, in adapt_model
+    self.model, self.processor, self.config = self.prepare_model()
+  File "/workspace/tasks/text_generation.py", line 115, in prepare_model
+    config = AutoConfig.from_pretrained(self.model_path)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 928, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/configuration_utils.py", line 631, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/configuration_utils.py", line 686, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/hub.py", line 416, in cached_file
+    raise EnvironmentError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Meta-Llama-3-8B.
+401 Client Error. (Request ID: Root=1-67586f4f-79c6c3e1169a89e02b3ee85b;3680191c-8097-4fae-a301-88579f6407c0)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+12/10/2024 23-41-51 - INFO - failure - JOB FAILED
+12/10/2024 23-53-41 - INFO - tasks.base_trainer - Experiment Arguments: {'TASK': 'text_generation', 'subtask': None, 'packing': True, 'dataset_text_field': 'text', 'max_seq_length': 512, 'flash_attention2': False, 'blocksize': 128, 'cuda_id': '0', 'auto_select_modules': True, 'OUTPUT_DIR': '/user_data/jobs/Adapt/100', 'OVERWRITE_OUTPUT_DIR': False, 'LOGGING_PATH': '/user_data/logs/Adapt/100', 'MERGE_ADAPTERS': False, 'DATASET_ARGS': {'DATASET': 'mlabonne/guanaco-llama2-1k', 'DATA_VERSION': '1.0', 'DATA_SPLIT': 0.2, 'TRAIN_DIR': '', 'VAL_DIR': '', 'TEST_DIR': '', 'MAX_TRAIN_SAMPLES': None, 'MAX_EVAL_SAMPLES': None, 'CUSTOM_DATASET_PATH': None, 'DATASET_CONFIG': {}, 'DATASET_FORMAT': None, 'FORMAT_NAMES': 'text', 'FORMAT_STRING': None, 'input_column': 'context', 'input_question_column': 'question', 'target_column': 'answers', 'squad_v2_format': False}, 'MODEL_ARGS': {'MODEL': 'Llama-2', 'MODEL_PATH': 'meta-llama/Meta-Llama-3-8B', 'MODEL_VERSION': '1.0', 'CACHE_BOOL': False, 'MODEL_CHECKPOINT': '', 'LOCAL_MODEL_PATH': None}, 'TRAINING_ARGS': {'SEED': 56, 'DO_TRAIN': True, 'DO_EVAL': False, 'NUM_WORKERS': 4, 'BATCH_SIZE': 4, 'EPOCHS': 0.01, 'STEPS': 100, 'OPTIMIZER': 'paged_adamw_32bit', 'LR': 0.0002, 'SCHEDULER_TYPE': 'constant', 'WEIGHT_DECAY': 0.001, 'BETA1': 0.9, 'BETA2': 0.999, 'ADAM_EPS': '1e-8', 'INTERVAL': 'steps', 'INTERVAL_STEPS': 50, 'NO_OF_CHECKPOINTS': 5, 'FP16': True, 'REMOVE_UNUSED_COLUMNS': True, 'RESUME_FROM_CHECKPOINT': False, 'GRADIENT_ACCUMULATION_STEPS': 1, 'GRADIENT_CHECKPOINTING': True, 'GROUP_BY_LENGTH': True, 'T_MAX': 100, 'MILESTONES': None, 'GAMMA': 0.1, 'WARMUP': True, 'WARMUP_ITERS': 50, 'WARMUP_RATIO': 0.1, 'BEGIN': 0, 'END': 10}, 'FINE_TUNING_ARGS': {'LAST_LAYER_TUNING': True, 'FULL_FINE_TUNING': False}, 'PEFT_METHOD': 'LoRA', 'DoRA_CONFIG': {'r': 2, 'target_modules': None, 'lora_alpha': 8, 'lora_dropout': 0.0, 'fan_in_fan_out': False, 'bias': 'none', 'use_rslora': False, 'modules_to_save': None, 'init_lora_weights': True, 'layers_to_transform': None, 'layers_pattern': None, 'rank_pattern': <dataclasses._MISSING_TYPE object at 0x7a4ca9c7bf10>, 'alpha_pattern': <dataclasses._MISSING_TYPE object at 0x7a4ca9c7bfd0>, 'megatron_config': None, 'megatron_core': 'megatron.core', 'use_dora': True, 'layer_replication': None, 'peft_type': 'LoRA'}, 'SSF_CONFIG': {'peft_type': 'LoRA'}, 'LoRA_CONFIG': {'r': 2, 'target_modules': None, 'lora_alpha': 8, 'lora_dropout': 0.0, 'fan_in_fan_out': False, 'bias': 'none', 'use_rslora': False, 'modules_to_save': None, 'init_lora_weights': True, 'layers_to_transform': None, 'layers_pattern': None, 'rank_pattern': <dataclasses._MISSING_TYPE object at 0x7a4ca9c7b490>, 'alpha_pattern': <dataclasses._MISSING_TYPE object at 0x7a4ca9c78850>, 'megatron_config': None, 'megatron_core': 'megatron.core', 'use_dora': False, 'layer_replication': None, 'peft_type': 'LoRA'}, 'BNB_CONFIG': {'USE_4BIT': {'load_in_4bit': True, 'bnb_4bit_compute_dtype': 'float16', 'bnb_4bit_quant_type': 'nf4', 'bnb_4bit_use_double_quant': False, 'bnb_4bit_quant_storage': 'float16'}, 'USE_8BIT': {'load_in_8bit': False, 'llm_int8_threshold': 6.0, 'llm_int8_skip_modules': None, 'llm_int8_enable_fp32_cpu_offload': False, 'llm_int8_has_fp16_weight': False}}, 'SAVE_METHOD': 'state_dict', 'max_input_length': 128, 'max_target_length': 128, 'eval_metric': 'rogue', 'source_lang': '', 'target_lang': '', 'PREFIX': '', 'max_answer_length': 30, 'doc_stride': 128, 'max_length': 384, 'Library': 'Huggingface', 'DDP': False, 'num_nodes': 1, 'FSDP': False}
+12/10/2024 23-53-41 - INFO - tasks.base_trainer - CUSTOM DATA IS NOT GIVEN, DATA IS mlabonne/guanaco-llama2-1k
+12/10/2024 23-53-42 - ERROR - failure - You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Meta-Llama-3-8B.
+401 Client Error. (Request ID: Root=1-67587216-5cc7023b5d181e1411146ab6;df6e4f6f-1499-49a0-a068-15e2aeecd171)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_errors.py", line 304, in hf_raise_for_status
+    response.raise_for_status()
+  File "/opt/conda/lib/python3.10/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 119, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1403, in hf_hub_download
+    raise head_call_error
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1261, in hf_hub_download
+    metadata = get_hf_file_metadata(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 119, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1674, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 369, in _request_wrapper
+    response = _request_wrapper(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 393, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_errors.py", line 321, in hf_raise_for_status
+    raise GatedRepoError(message, response) from e
+huggingface_hub.utils._errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-67587216-5cc7023b5d181e1411146ab6;df6e4f6f-1499-49a0-a068-15e2aeecd171)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/run.py", line 69, in <module>
+    name = train_llama.adapt_model()
+  File "/workspace/tasks/base_trainer.py", line 507, in adapt_model
+    self.model, self.processor, self.config = self.prepare_model()
+  File "/workspace/tasks/text_generation.py", line 115, in prepare_model
+    config = AutoConfig.from_pretrained(self.model_path)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 928, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/configuration_utils.py", line 631, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/configuration_utils.py", line 686, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/hub.py", line 416, in cached_file
+    raise EnvironmentError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Meta-Llama-3-8B.
+401 Client Error. (Request ID: Root=1-67587216-5cc7023b5d181e1411146ab6;df6e4f6f-1499-49a0-a068-15e2aeecd171)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+12/10/2024 23-53-42 - INFO - failure - JOB FAILED
+12/10/2024 23-54-09 - INFO - tasks.base_trainer - Experiment Arguments: {'TASK': 'text_generation', 'subtask': None, 'packing': True, 'dataset_text_field': 'text', 'max_seq_length': 512, 'flash_attention2': False, 'blocksize': 128, 'cuda_id': '0', 'auto_select_modules': True, 'OUTPUT_DIR': '/user_data/jobs/Adapt/100', 'OVERWRITE_OUTPUT_DIR': False, 'LOGGING_PATH': '/user_data/logs/Adapt/100', 'MERGE_ADAPTERS': False, 'DATASET_ARGS': {'DATASET': 'mlabonne/guanaco-llama2-1k', 'DATA_VERSION': '1.0', 'DATA_SPLIT': 0.2, 'TRAIN_DIR': '', 'VAL_DIR': '', 'TEST_DIR': '', 'MAX_TRAIN_SAMPLES': None, 'MAX_EVAL_SAMPLES': None, 'CUSTOM_DATASET_PATH': None, 'DATASET_CONFIG': {}, 'DATASET_FORMAT': None, 'FORMAT_NAMES': 'text', 'FORMAT_STRING': None, 'input_column': 'context', 'input_question_column': 'question', 'target_column': 'answers', 'squad_v2_format': False}, 'MODEL_ARGS': {'MODEL': 'Llama-2', 'MODEL_PATH': 'meta-llama/Meta-Llama-3-8B', 'MODEL_VERSION': '1.0', 'CACHE_BOOL': False, 'MODEL_CHECKPOINT': '', 'LOCAL_MODEL_PATH': None}, 'TRAINING_ARGS': {'SEED': 56, 'DO_TRAIN': True, 'DO_EVAL': False, 'NUM_WORKERS': 4, 'BATCH_SIZE': 4, 'EPOCHS': 0.01, 'STEPS': 100, 'OPTIMIZER': 'paged_adamw_32bit', 'LR': 0.0002, 'SCHEDULER_TYPE': 'constant', 'WEIGHT_DECAY': 0.001, 'BETA1': 0.9, 'BETA2': 0.999, 'ADAM_EPS': '1e-8', 'INTERVAL': 'steps', 'INTERVAL_STEPS': 50, 'NO_OF_CHECKPOINTS': 5, 'FP16': True, 'REMOVE_UNUSED_COLUMNS': True, 'RESUME_FROM_CHECKPOINT': False, 'GRADIENT_ACCUMULATION_STEPS': 1, 'GRADIENT_CHECKPOINTING': True, 'GROUP_BY_LENGTH': True, 'T_MAX': 100, 'MILESTONES': None, 'GAMMA': 0.1, 'WARMUP': True, 'WARMUP_ITERS': 50, 'WARMUP_RATIO': 0.1, 'BEGIN': 0, 'END': 10}, 'FINE_TUNING_ARGS': {'LAST_LAYER_TUNING': True, 'FULL_FINE_TUNING': False}, 'PEFT_METHOD': 'LoRA', 'DoRA_CONFIG': {'r': 2, 'target_modules': None, 'lora_alpha': 8, 'lora_dropout': 0.0, 'fan_in_fan_out': False, 'bias': 'none', 'use_rslora': False, 'modules_to_save': None, 'init_lora_weights': True, 'layers_to_transform': None, 'layers_pattern': None, 'rank_pattern': <dataclasses._MISSING_TYPE object at 0x767af9fbfe80>, 'alpha_pattern': <dataclasses._MISSING_TYPE object at 0x767af9fbcf70>, 'megatron_config': None, 'megatron_core': 'megatron.core', 'use_dora': True, 'layer_replication': None, 'peft_type': 'LoRA'}, 'SSF_CONFIG': {'peft_type': 'LoRA'}, 'LoRA_CONFIG': {'r': 2, 'target_modules': None, 'lora_alpha': 8, 'lora_dropout': 0.0, 'fan_in_fan_out': False, 'bias': 'none', 'use_rslora': False, 'modules_to_save': None, 'init_lora_weights': True, 'layers_to_transform': None, 'layers_pattern': None, 'rank_pattern': <dataclasses._MISSING_TYPE object at 0x767af9fbf370>, 'alpha_pattern': <dataclasses._MISSING_TYPE object at 0x767af9fbc850>, 'megatron_config': None, 'megatron_core': 'megatron.core', 'use_dora': False, 'layer_replication': None, 'peft_type': 'LoRA'}, 'BNB_CONFIG': {'USE_4BIT': {'load_in_4bit': True, 'bnb_4bit_compute_dtype': 'float16', 'bnb_4bit_quant_type': 'nf4', 'bnb_4bit_use_double_quant': False, 'bnb_4bit_quant_storage': 'float16'}, 'USE_8BIT': {'load_in_8bit': False, 'llm_int8_threshold': 6.0, 'llm_int8_skip_modules': None, 'llm_int8_enable_fp32_cpu_offload': False, 'llm_int8_has_fp16_weight': False}}, 'SAVE_METHOD': 'state_dict', 'max_input_length': 128, 'max_target_length': 128, 'eval_metric': 'rogue', 'source_lang': '', 'target_lang': '', 'PREFIX': '', 'max_answer_length': 30, 'doc_stride': 128, 'max_length': 384, 'Library': 'Huggingface', 'DDP': False, 'num_nodes': 1, 'FSDP': False}
+12/10/2024 23-54-09 - INFO - tasks.base_trainer - CUSTOM DATA IS NOT GIVEN, DATA IS mlabonne/guanaco-llama2-1k
+12/10/2024 23-54-10 - ERROR - failure - You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Meta-Llama-3-8B.
+401 Client Error. (Request ID: Root=1-67587232-10d5f6a50df85e8950513dbb;73b56ad0-63c7-4a06-80b5-e94e26e8a42b)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_errors.py", line 304, in hf_raise_for_status
+    response.raise_for_status()
+  File "/opt/conda/lib/python3.10/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 119, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1403, in hf_hub_download
+    raise head_call_error
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1261, in hf_hub_download
+    metadata = get_hf_file_metadata(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 119, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1674, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 369, in _request_wrapper
+    response = _request_wrapper(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 393, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_errors.py", line 321, in hf_raise_for_status
+    raise GatedRepoError(message, response) from e
+huggingface_hub.utils._errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-67587232-10d5f6a50df85e8950513dbb;73b56ad0-63c7-4a06-80b5-e94e26e8a42b)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/run.py", line 69, in <module>
+    name = train_llama.adapt_model()
+  File "/workspace/tasks/base_trainer.py", line 507, in adapt_model
+    self.model, self.processor, self.config = self.prepare_model()
+  File "/workspace/tasks/text_generation.py", line 115, in prepare_model
+    config = AutoConfig.from_pretrained(self.model_path)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 928, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/configuration_utils.py", line 631, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/configuration_utils.py", line 686, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/hub.py", line 416, in cached_file
+    raise EnvironmentError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Meta-Llama-3-8B.
+401 Client Error. (Request ID: Root=1-67587232-10d5f6a50df85e8950513dbb;73b56ad0-63c7-4a06-80b5-e94e26e8a42b)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+12/10/2024 23-54-10 - INFO - failure - JOB FAILED
+12/11/2024 00-11-51 - INFO - tasks.base_trainer - Experiment Arguments: {'TASK': 'text_generation', 'subtask': None, 'packing': True, 'dataset_text_field': 'text', 'max_seq_length': 512, 'flash_attention2': False, 'blocksize': 128, 'cuda_id': '0', 'auto_select_modules': True, 'OUTPUT_DIR': '/user_data/jobs/Adapt/100', 'OVERWRITE_OUTPUT_DIR': False, 'LOGGING_PATH': '/user_data/logs/Adapt/100', 'MERGE_ADAPTERS': False, 'DATASET_ARGS': {'DATASET': 'mlabonne/guanaco-llama2-1k', 'DATA_VERSION': '1.0', 'DATA_SPLIT': 0.2, 'TRAIN_DIR': '', 'VAL_DIR': '', 'TEST_DIR': '', 'MAX_TRAIN_SAMPLES': None, 'MAX_EVAL_SAMPLES': None, 'CUSTOM_DATASET_PATH': None, 'DATASET_CONFIG': {}, 'DATASET_FORMAT': None, 'FORMAT_NAMES': 'text', 'FORMAT_STRING': None, 'input_column': 'context', 'input_question_column': 'question', 'target_column': 'answers', 'squad_v2_format': False}, 'MODEL_ARGS': {'MODEL': 'Llama-2', 'MODEL_PATH': 'meta-llama/Meta-Llama-3-8B', 'MODEL_VERSION': '1.0', 'CACHE_BOOL': False, 'MODEL_CHECKPOINT': '', 'LOCAL_MODEL_PATH': None}, 'TRAINING_ARGS': {'SEED': 56, 'DO_TRAIN': True, 'DO_EVAL': False, 'NUM_WORKERS': 4, 'BATCH_SIZE': 4, 'EPOCHS': 0.01, 'STEPS': 100, 'OPTIMIZER': 'paged_adamw_32bit', 'LR': 0.0002, 'SCHEDULER_TYPE': 'constant', 'WEIGHT_DECAY': 0.001, 'BETA1': 0.9, 'BETA2': 0.999, 'ADAM_EPS': '1e-8', 'INTERVAL': 'steps', 'INTERVAL_STEPS': 50, 'NO_OF_CHECKPOINTS': 5, 'FP16': True, 'REMOVE_UNUSED_COLUMNS': True, 'RESUME_FROM_CHECKPOINT': False, 'GRADIENT_ACCUMULATION_STEPS': 1, 'GRADIENT_CHECKPOINTING': True, 'GROUP_BY_LENGTH': True, 'T_MAX': 100, 'MILESTONES': None, 'GAMMA': 0.1, 'WARMUP': True, 'WARMUP_ITERS': 50, 'WARMUP_RATIO': 0.1, 'BEGIN': 0, 'END': 10}, 'FINE_TUNING_ARGS': {'LAST_LAYER_TUNING': True, 'FULL_FINE_TUNING': False}, 'PEFT_METHOD': 'LoRA', 'DoRA_CONFIG': {'r': 2, 'target_modules': None, 'lora_alpha': 8, 'lora_dropout': 0.0, 'fan_in_fan_out': False, 'bias': 'none', 'use_rslora': False, 'modules_to_save': None, 'init_lora_weights': True, 'layers_to_transform': None, 'layers_pattern': None, 'rank_pattern': <dataclasses._MISSING_TYPE object at 0x7e3f12c3bf70>, 'alpha_pattern': <dataclasses._MISSING_TYPE object at 0x7e3f12c38f10>, 'megatron_config': None, 'megatron_core': 'megatron.core', 'use_dora': True, 'layer_replication': None, 'peft_type': 'LoRA'}, 'SSF_CONFIG': {'peft_type': 'LoRA'}, 'LoRA_CONFIG': {'r': 2, 'target_modules': None, 'lora_alpha': 8, 'lora_dropout': 0.0, 'fan_in_fan_out': False, 'bias': 'none', 'use_rslora': False, 'modules_to_save': None, 'init_lora_weights': True, 'layers_to_transform': None, 'layers_pattern': None, 'rank_pattern': <dataclasses._MISSING_TYPE object at 0x7e3f12c3b460>, 'alpha_pattern': <dataclasses._MISSING_TYPE object at 0x7e3f12c38850>, 'megatron_config': None, 'megatron_core': 'megatron.core', 'use_dora': False, 'layer_replication': None, 'peft_type': 'LoRA'}, 'BNB_CONFIG': {'USE_4BIT': {'load_in_4bit': True, 'bnb_4bit_compute_dtype': 'float16', 'bnb_4bit_quant_type': 'nf4', 'bnb_4bit_use_double_quant': False, 'bnb_4bit_quant_storage': 'float16'}, 'USE_8BIT': {'load_in_8bit': False, 'llm_int8_threshold': 6.0, 'llm_int8_skip_modules': None, 'llm_int8_enable_fp32_cpu_offload': False, 'llm_int8_has_fp16_weight': False}}, 'SAVE_METHOD': 'state_dict', 'max_input_length': 128, 'max_target_length': 128, 'eval_metric': 'rogue', 'source_lang': '', 'target_lang': '', 'PREFIX': '', 'max_answer_length': 30, 'doc_stride': 128, 'max_length': 384, 'Library': 'Huggingface', 'DDP': False, 'num_nodes': 1, 'FSDP': False}
+12/11/2024 00-11-51 - INFO - tasks.base_trainer - CUSTOM DATA IS NOT GIVEN, DATA IS mlabonne/guanaco-llama2-1k
+12/11/2024 00-11-53 - ERROR - failure - You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Meta-Llama-3-8B.
+401 Client Error. (Request ID: Root=1-67587659-05514db70809477b19356b8a;172f540d-9b17-4e2b-ab1b-8bc678689fc3)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_errors.py", line 304, in hf_raise_for_status
+    response.raise_for_status()
+  File "/opt/conda/lib/python3.10/site-packages/requests/models.py", line 1021, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 119, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1403, in hf_hub_download
+    raise head_call_error
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1261, in hf_hub_download
+    metadata = get_hf_file_metadata(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 119, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1674, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 369, in _request_wrapper
+    response = _request_wrapper(
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 393, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/opt/conda/lib/python3.10/site-packages/huggingface_hub/utils/_errors.py", line 321, in hf_raise_for_status
+    raise GatedRepoError(message, response) from e
+huggingface_hub.utils._errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-67587659-05514db70809477b19356b8a;172f540d-9b17-4e2b-ab1b-8bc678689fc3)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/run.py", line 69, in <module>
+    name = train_llama.adapt_model()
+  File "/workspace/tasks/base_trainer.py", line 507, in adapt_model
+    self.model, self.processor, self.config = self.prepare_model()
+  File "/workspace/tasks/text_generation.py", line 115, in prepare_model
+    config = AutoConfig.from_pretrained(self.model_path)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/models/auto/configuration_auto.py", line 928, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/configuration_utils.py", line 631, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/transformers/configuration_utils.py", line 686, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/hub.py", line 416, in cached_file
+    raise EnvironmentError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/meta-llama/Meta-Llama-3-8B.
+401 Client Error. (Request ID: Root=1-67587659-05514db70809477b19356b8a;172f540d-9b17-4e2b-ab1b-8bc678689fc3)
+
+Cannot access gated repo for url https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json.
+Access to model meta-llama/Meta-Llama-3-8B is restricted. You must have access to it and be authenticated to access it. Please log in.
+12/11/2024 00-11-53 - INFO - failure - JOB FAILED
