@@ -156,7 +156,7 @@ class DockerRepository(StrEnum):
 
     # public
     NYUN_ZERO_VISION = "nyunadmin/nyunzero_kompress_vision"
-    NYUN_ZERO_TEXT_GENERATION = "nyunadmin/nyunzero_text_generation"
+    NYUN_ZERO_TEXT_GENERATION = "nyunadmin/nyuntam-text-generation"
     NYUN_ZERO_ADAPT = "nyunadmin/nyunzero_adapt"
     NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM = (
         "nyunadmin/nyunzero_text_generation_tensorrt_llm"
@@ -270,13 +270,32 @@ class DockerPath(Enum):
 
 
 class DockerCommand(StrEnum):
-
-    RUN = "python run_dist.py --yaml_path {script_path}"
+    # Base commands
+    CLONE = "git clone --recursive https://github.com/nyunAI/nyuntam.git"
+    CD = "cd nyuntam"
+    
+    # Run commands for different cases
+    RUN = "python main.py --yaml_path {script_path}"  # New default run command 
+    RUN_DIST = "python run_dist.py --yaml_path {script_path}"  # Keep old command as RUN_DIST
 
     @staticmethod
-    def get_run_command(script_path: Union[Path, str]):
-        return DockerCommand.RUN.format(script_path=script_path)
-
+    def get_run_command(script_path: Union[Path, str], algorithm: Optional[Algorithm] = None) -> str:
+        """
+        Get the appropriate run command based on the algorithm.
+        
+        Args:
+            script_path (Union[Path, str]): Path to the script to run
+            algorithm (Optional[Algorithm]): Algorithm to determine which command to use
+            
+        Returns:
+            str: Complete command string to run in the container
+        """
+        # For AWQ and potentially other algorithms that need the new command structure
+        if algorithm in {Algorithm.AUTOAWQ}:
+            return f"{DockerCommand.CLONE} && {DockerCommand.CD} && {DockerCommand.RUN.format(script_path=script_path)}"
+        
+        # Default to original command for backward compatibility
+        return DockerCommand.RUN_DIST.format(script_path=script_path)
 
 NYUN_ENV_KEY_PREFIX = "NYUN_"
 EMPTY_STRING = ""
