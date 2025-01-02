@@ -116,36 +116,49 @@ def run(
         raise typer.Abort()
     ext_obj = workspace.init_extension()
     try:
-        # Initialize progress bar
-        progress = Progress(
-            SpinnerColumn(spinner_name="dots8", speed=2),
+        with Progress(
+            SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
             transient=False,
-        )
-        with progress:
+        ) as progress:
             for file_path in file_paths:
                 task = progress.add_task(
                     f"[white](Nyun) Running script {file_path}...",
                     total=1,
                     start=False,
                 )
-                running_container: Container = ext_obj.run(
-                    file_path=file_path, workspace=workspace
-                )
-                running_container.wait()
-                # TODO: add checks on container if success or failed. use container.exec_run if needed
-                progress.update(
-                    task,
-                    advance=1,
-                    description=f"[blue]Done.",
-                    completed=True,
-                    refresh=True,
-                )
+                
+                # Stop progress to show container logs
+                progress.stop()
+                
+                try:
+                    running_container = ext_obj.run(
+                        file_path=file_path, workspace=workspace
+                    )
+                    
+                    progress.start()
+                    progress.update(
+                        task,
+                        advance=1,
+                        description=f"[green]Successfully completed.",
+                        completed=True,
+                        refresh=True,
+                    )
+                except Exception as e:
+                    progress.start()
+                    progress.update(
+                        task,
+                        description=f"[red]Failed: {str(e)}",
+                        completed=True,
+                        refresh=True,
+                    )
+                    raise e
+
     except ContainerError as e:
-        typer.echo(err=True, message=e.stderr)
+        typer.echo(f"\nContainer Error: {e.stderr}", err=True)
         raise typer.Abort()
     except Exception as e:
-        typer.echo(e)
+        typer.echo(f"\nError: {str(e)}")
         raise typer.Abort()
 
 

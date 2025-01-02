@@ -177,7 +177,7 @@ class DockerTag(StrEnum):
 
     # adapt
     ADAPT = "february"
-
+    LATEST = "latest"
     # public v0.1
     V0_1 = "v0.1"
     PUBLIC_LATEST = V0_1
@@ -273,10 +273,7 @@ class DockerCommand(StrEnum):
     # Base commands
     CLONE = "git clone --recursive https://github.com/nyunAI/nyuntam.git"
     CD = "cd nyuntam"
-    
-    # Run commands for different cases
-    RUN = "python main.py --yaml_path {script_path}"  # New default run command 
-    RUN_DIST = "python run_dist.py --yaml_path {script_path}"  # Keep old command as RUN_DIST
+    RUN = "python main.py --yaml_path {script_path}"
 
     @staticmethod
     def get_run_command(script_path: Union[Path, str], algorithm: Optional[Algorithm] = None) -> str:
@@ -290,12 +287,10 @@ class DockerCommand(StrEnum):
         Returns:
             str: Complete command string to run in the container
         """
-        # For AWQ and potentially other algorithms that need the new command structure
-        if algorithm in {Algorithm.AUTOAWQ}:
-            return f"{DockerCommand.CLONE} && {DockerCommand.CD} && {DockerCommand.RUN.format(script_path=script_path)}"
-        
-        # Default to original command for backward compatibility
-        return DockerCommand.RUN_DIST.format(script_path=script_path)
+        # Use /bin/bash -c to properly handle command chaining
+        # {DockerCommand.CLONE}
+        return f"/bin/bash -c '{DockerCommand.CD} && {DockerCommand.RUN.format(script_path=script_path)}'"
+
 
 NYUN_ENV_KEY_PREFIX = "NYUN_"
 EMPTY_STRING = ""

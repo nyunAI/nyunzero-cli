@@ -242,34 +242,35 @@ class KompressVisionExtension(BaseExtension):
 class KompressTextGenerationExtension(BaseExtension):
     extension_type = WorkspaceExtension.TEXT_GENERATION
     docker_images = {
-        NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.MLCLLM),
-        NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.EXLLAMA),
+        # NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.MLCLLM),
+        # NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.EXLLAMA),
         # public
-        NyunDocker(DockerRepository.NYUN_ZERO_TEXT_GENERATION, DockerTag.PUBLIC_LATEST),
+        NyunDocker(DockerRepository.NYUN_ZERO_TEXT_GENERATION, DockerTag.LATEST),
         NyunDocker(
             DockerRepository.NYUN_ZERO_TEXT_GENERATION_TENSORRT_LLM,
             DockerTag.PUBLIC_LATEST,
         ),
+ 
     }
 
     extension_metadata = {
-        DockerMetadata(
-            algorithm=Algorithm.EXLLAMA,
-            docker_image=NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.EXLLAMA),
-            platforms=[Platform.HUGGINGFACE],
-            extension=WorkspaceExtension.TEXT_GENERATION,
-        ),
-        DockerMetadata(
-            algorithm=Algorithm.MLCLLM,
-            docker_image=NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.MLCLLM),
-            platforms=[Platform.HUGGINGFACE],
-            extension=WorkspaceExtension.TEXT_GENERATION,
-        ),
+        # DockerMetadata(
+        #     algorithm=Algorithm.EXLLAMA,
+        #     docker_image=NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.EXLLAMA),
+        #     platforms=[Platform.HUGGINGFACE],
+        #     extension=WorkspaceExtension.TEXT_GENERATION,
+        # ),
+        # DockerMetadata(
+        #     algorithm=Algorithm.MLCLLM,
+        #     docker_image=NyunDocker(DockerRepository.NYUN_KOMPRESS, DockerTag.MLCLLM),
+        #     platforms=[Platform.HUGGINGFACE],
+        #     extension=WorkspaceExtension.TEXT_GENERATION,
+        # ),
         # public
         DockerMetadata(
             algorithm=Algorithm.AUTOAWQ,
             docker_image=NyunDocker(
-                DockerRepository.NYUN_ZERO_TEXT_GENERATION, DockerTag.PUBLIC_LATEST
+                DockerRepository.NYUN_ZERO_TEXT_GENERATION, DockerTag.LATEST
             ),
             platforms=[Platform.HUGGINGFACE],
             extension=WorkspaceExtension.TEXT_GENERATION,
@@ -286,7 +287,7 @@ class KompressTextGenerationExtension(BaseExtension):
         DockerMetadata(
             algorithm=Algorithm.FLAPPRUNER,
             docker_image=NyunDocker(
-                DockerRepository.NYUN_ZERO_TEXT_GENERATION, DockerTag.PUBLIC_LATEST
+                DockerRepository.NYUN_ZERO_TEXT_GENERATION, DockerTag.LATEST
             ),
             platforms=[Platform.HUGGINGFACE],
             extension=WorkspaceExtension.TEXT_GENERATION,

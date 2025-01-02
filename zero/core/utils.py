@@ -162,7 +162,7 @@ def remove_docker_image(*image: "NyunDocker"):
     for img in image:
         try:
             client.images.remove(img.repository, img.tag)
-            logger.info(f"Image {img} removed successfully")
+            print(f"Image {img} removed successfully")
         except Exception as e:
             logger.error(f"Image {img} failed to remove: {e}")
             raise Exception from e
@@ -190,7 +190,7 @@ def start_docker_container(*image: "NyunDocker"):
             img = futures[future]
             try:
                 future.result()
-                logger.info(f"Container {img} started successfully")
+                print(f"Container {img} started successfully")
             except Exception as e:
                 logger.error(f"Container {img} failed to start: {e}")
                 raise Exception from e
@@ -228,7 +228,7 @@ def run_docker_container(
             extension_type=metadata.extension_type
         )
         mounts = [
-            # Mount workspace dir
+            # Mount workspace dir with write permissions
             Mount(
                 source=str(workspace.workspace_path),
                 target=str(DockerPath.USER_DATA.value),
@@ -258,31 +258,53 @@ def run_docker_container(
             ),
         ]
 
-        environment = (
-            get_environment_keys_from_workspace(workspace.get_workspace_env_file())
-            if workspace.get_workspace_env_file()
-            else None
-        )
-
+        environment = get_environment_keys_from_workspace(workspace.get_workspace_env_file()) if workspace.get_workspace_env_file() else None
         device_requests = [DeviceRequest(device_ids=["all"], capabilities=[["gpu"]])]
+        
+        # Change working directory to user_data which is writable
+        working_dir = str(DockerPath.USER_DATA.value)
 
-        working_dir = DockerPath.get_service_path_in_docker(service_name=service)
-        logger.info(
-            f"Running {image[0]} with command: {command}\nMounts: {mounts}\nEnvironment: {environment}\nDevice Requests: {device_requests}\nWorking Dir: {working_dir}"
-        )
+        print(f"Running {image[0]} with command: {command}")
+        print(f"Mounts: {mounts}")
+        print(f"Environment: {environment}")
+        print(f"Device Requests: {device_requests}")
+        print(f"Working Dir: {working_dir}")
+
         running_container: Container = client.containers.run(
             command=command,
             image=str(image[0]),
             device_requests=device_requests,
-            detach=False,
+            detach=True,
             mounts=mounts,
-            remove=True,
-            working_dir=str(working_dir),
+            remove=False,
+            working_dir=working_dir,
             environment=environment,
+            stdin_open=True,
+            tty=True,
         )
+
+        # Stream logs in real-time
+        for log in running_container.logs(stream=True, follow=True):
+            print(log.decode().strip())
+
+        # Get exit code
+        result = running_container.wait()
+        if result['StatusCode'] != 0:
+            print("\nContainer failed. Full logs:")
+            print(running_container.logs().decode())
+            raise Exception(f"Container exited with status code {result['StatusCode']}")
+
+        # Clean up container
+        try:
+            running_container.remove()
+        except Exception as e:
+            print(f"Warning: Could not remove container: {e}")
+
         return running_container
 
     except ContainerError as e:
+        print("\nContainer Error. Full logs:")
+        print(e.stderr.decode())
         raise e
     except Exception as e:
         logger.error(f"Container {image[0]} failed to run with command {command}: {e}")
@@ -305,7 +327,7 @@ def remove_container(*image: "NyunDocker"):
             container_id=image.container_id
         )
         container_to_remove.remove()
-        logger.info(f"Container {image} removed successfully")
+        print(f"Container {image} removed successfully")
     except Exception as e:
         logger.error(f"Container {image} failed to remove: {e}")
         raise Exception from e
@@ -322,7 +344,7 @@ def get_environment_keys_from_workspace(env_file_path: Path) -> Dict[str, str]:
         Dict[str, str]: A dictionary containing the environment keys.
     """
 
-    logger.info(f"Reading environment keys from {env_file_path}")
+    print(f"Reading environment keys from {env_file_path}")
     return {
         key.replace(NYUN_ENV_KEY_PREFIX, EMPTY_STRING): value
         for key, value in dotenv_values(env_file_path).items()
