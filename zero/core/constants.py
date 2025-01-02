@@ -271,6 +271,7 @@ class DockerPath(Enum):
 
 class DockerCommand(StrEnum):
     # Base commands
+    REMOVE_DIR = "rm -rf nyuntam"
     CLONE = "git clone --recursive https://github.com/nyunAI/nyuntam.git"
     CD = "cd nyuntam"
     RUN = "python main.py --yaml_path {script_path}"
@@ -279,17 +280,9 @@ class DockerCommand(StrEnum):
     def get_run_command(script_path: Union[Path, str], algorithm: Optional[Algorithm] = None) -> str:
         """
         Get the appropriate run command based on the algorithm.
-        
-        Args:
-            script_path (Union[Path, str]): Path to the script to run
-            algorithm (Optional[Algorithm]): Algorithm to determine which command to use
-            
-        Returns:
-            str: Complete command string to run in the container
         """
-        # Use /bin/bash -c to properly handle command chaining
-        # {DockerCommand.CLONE}
-        return f"/bin/bash -c '{DockerCommand.CD} && {DockerCommand.RUN.format(script_path=script_path)}'"
+        # Add remove directory command before clone
+        return f"/bin/bash -c '{DockerCommand.REMOVE_DIR} && {DockerCommand.CLONE} && {DockerCommand.CD} && {DockerCommand.RUN.format(script_path=script_path)}'"
 
 
 NYUN_ENV_KEY_PREFIX = "NYUN_"

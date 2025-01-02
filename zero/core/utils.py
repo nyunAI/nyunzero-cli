@@ -270,6 +270,7 @@ def run_docker_container(
         print(f"Device Requests: {device_requests}")
         print(f"Working Dir: {working_dir}")
 
+        # Run container silently
         running_container: Container = client.containers.run(
             command=command,
             image=str(image[0]),
@@ -283,16 +284,10 @@ def run_docker_container(
             tty=True,
         )
 
-        # Stream logs in real-time
-        for log in running_container.logs(stream=True, follow=True):
-            print(log.decode().strip())
-
-        # Get exit code
+        # Wait for container to finish
         result = running_container.wait()
         if result['StatusCode'] != 0:
-            print("\nContainer failed. Full logs:")
-            print(running_container.logs().decode())
-            raise Exception(f"Container exited with status code {result['StatusCode']}")
+            raise Exception(f"Container execution failed")
 
         # Clean up container
         try:
@@ -302,12 +297,8 @@ def run_docker_container(
 
         return running_container
 
-    except ContainerError as e:
-        print("\nContainer Error. Full logs:")
-        print(e.stderr.decode())
-        raise e
     except Exception as e:
-        logger.error(f"Container {image[0]} failed to run with command {command}: {e}")
+        logger.error(f"Failed to run {metadata.algorithm}: {str(e)}")
         raise Exception from e
 
 

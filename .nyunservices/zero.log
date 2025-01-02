@@ -142,3 +142,9 @@ Working Dir: /nyun/nyuntam
 2025-01-02 07:51:29,399 - zero.core.workspace - INFO - Workspace initialized.
 2025-01-02 07:51:30,320 - zero.core.utils - ERROR - Container nyunadmin/nyuntam-text-generation:latest failed to run with command /bin/bash -c 'git clone --recursive https://github.com/nyunAI/nyuntam.git && cd nyuntam && python main.py --yaml_path /scripts/awq_test.yaml': Container exited with status code 128
 2025-01-02 07:52:08,597 - zero.core.workspace - INFO - Workspace initialized.
+2025-01-02 08:01:12,118 - zero.core.workspace - INFO - Workspace initialized.
+2025-01-02 08:01:22,171 - zero.core.utils - ERROR - Container nyunadmin/nyuntam-text-generation:latest failed to run with command /bin/bash -c 'cd nyuntam && python main.py --yaml_path /scripts/flap_test.yaml': Container exited with status code 1
+2025-01-02 08:14:44,702 - zero.core.workspace - INFO - Workspace initialized.
+2025-01-02 11:51:03,099 - zero.core.workspace - INFO - Workspace initialized.
+2025-01-02 11:51:04,095 - zero.core.utils - ERROR - Container nyunadmin/nyuntam-text-generation:latest failed to run with command /bin/bash -c 'git clone --recursive https://github.com/nyunAI/nyuntam.git && cd nyuntam && python main.py --yaml_path /scripts/awq_test.yaml': Container exited with status code 128
+2025-01-02 11:58:13,941 - zero.core.workspace - INFO - Workspace initialized.
