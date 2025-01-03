@@ -11,7 +11,7 @@ from zero.core.workspace import (
 from docker.models.containers import Container
 from docker.errors import ContainerError
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from typing import List
+from typing import List, Optional
 
 SUPPORTED_SUFFIX = {".yaml", ".yml", ".json"}
 
@@ -20,25 +20,17 @@ app = typer.Typer()
 
 @app.command()
 def init(
-    workspace: Path = typer.Argument(
-        None,
-        help="Path to the workspace directory. If not provided, the current working directory will be used.",
+    workspace_path: Optional[Path] = typer.Argument(
+        None, help="Path to workspace directory. Defaults to current directory."
     ),
-    custom_data: Path = typer.Argument(
-        None,
-        help='Path to the custom data directory. If not provided, a default directory ("custom_data") will be created within the workspace.',
+    custom_data_path: Optional[Path] = typer.Argument(
+        None, help="Path to custom data directory. Defaults to workspace_path/custom_data"
     ),
     overwrite: bool = typer.Option(
-        False,
-        "--overwrite",
-        "-o",
-        help="Overwrite the existing workspace spec if it already exists.",
+        False, "--overwrite", "-o", help="Overwrite existing workspace"
     ),
-    extensions: WorkspaceExtension = typer.Option(
-        WorkspaceExtension.ALL,
-        "--extensions",
-        "-e",
-        help="Specify the extensions to install. Defaults to installing all available extensions. Available extensions are: kompress-vision, kompress-text-generation, adapt, all, none.",
+    extensions: List[str] = typer.Option(
+        ["all"], "--extensions", "-e", help="Extensions to install"
     ),
 ):
     """
@@ -49,33 +41,31 @@ def init(
     If not provided, default paths will be used.
     Additionally, you can specify whether to overwrite the existing workspace spec and which extensions to install.
     """
-    workspace_path, custom_data_path, _ = get_workspace_and_custom_data_paths(
-        workspace, custom_data
-    )
-
-    # Resolve absolute paths
-    workspace_path = (
-        workspace_path.resolve()
-        if workspace_path.is_absolute()
-        else Path.cwd() / workspace_path
-    )
-    custom_data_path = (
-        custom_data_path.resolve()
-        if custom_data_path.is_absolute()
-        else workspace_path / custom_data_path
-    )
-
+    # Use current directory if no workspace_path provided
+    if workspace_path is None:
+        workspace_path = Path.cwd()
+    
+    # Use workspace_path/custom_data if no custom_data_path provided
+    if custom_data_path is None:
+        custom_data_path = workspace_path / "custom_data"
+    
     try:
         workspace = Workspace(
             workspace_path=workspace_path,
             custom_data_path=custom_data_path,
-            extensions=extensions,
             overwrite=overwrite,
+            extensions=extensions[0],
         )
-        workspace.init_extension()
-        typer.echo(f"Initialized workspace.")
-    except ValueError as e:
-        typer.echo(e)
+        
+        # Create standard directory structure
+        for dir_name in ["models", "datasets", "jobs", "logs", ".cache"]:
+            (workspace_path / dir_name).mkdir(parents=True, exist_ok=True)
+            
+        typer.echo(f"Workspace initialized at {workspace_path}")
+        typer.echo(f"Custom data directory at {custom_data_path}")
+        
+    except Exception as e:
+        typer.echo(f"Failed to initialize workspace: {str(e)}")
         raise typer.Abort()
 
 
@@ -83,7 +73,8 @@ def init(
 def run(
     file_paths: List[Path] = typer.Argument(
         None, help="Path(s) to the YAML or JSON script file you want to run."
-    )
+    ),
+    log_path: Optional[Path] = typer.Option(None, help="Path to save Docker container logs"),
 ):
     """
     Run scripts within the initialized Nyun workspace.
@@ -133,7 +124,9 @@ def run(
                 
                 try:
                     running_container = ext_obj.run(
-                        file_path=file_path, workspace=workspace
+                        file_path=file_path, 
+                        workspace=workspace,
+                        log_path=log_path
                     )
                     
                     progress.start()

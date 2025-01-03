@@ -4,7 +4,7 @@ It includes functions for pulling Docker images, starting containers, running co
 and removing containers.
 """
 
-from typing import Union, Dict
+from typing import Union, Dict, Optional
 from logging import getLogger
 import os
 import docker
@@ -201,6 +201,7 @@ def run_docker_container(
     workspace: "Workspace",
     metadata: "DockerMetadata",
     *image: "NyunDocker",
+    log_path: Optional[Path] = None,
 ) -> Container:
     """
     Run a Docker container with a specified command in detached mode with auto-removal.
@@ -210,6 +211,7 @@ def run_docker_container(
         workspace (Workspace): The workspace object.
         metadata (DockerMetadata): The docker metadata object.
         *image (NyunDocker): A NyunDocker instance representing the Docker image to run.
+        log_path (Optional[Path]): The path to save Docker container logs.
 
     Returns:
         Container: The running Docker container.
@@ -294,6 +296,23 @@ def run_docker_container(
             running_container.remove()
         except Exception as e:
             print(f"Warning: Could not remove container: {e}")
+
+        # Write logs if path provided
+        if log_path:
+            try:
+                # Create directory if it doesn't exist
+                log_path.parent.mkdir(parents=True, exist_ok=True)
+                
+                # Open file in append mode to create it if it doesn't exist
+                with open(log_path, 'a') as f:
+                    f.write(f"\n--- Container logs for {metadata.algorithm} started ---\n")
+                    for log in running_container.logs(stream=True, follow=True):
+                        f.write(f"{log.decode().strip()}\n")
+                        f.flush()
+                    f.write(f"--- Container logs ended ---\n")
+            except Exception as e:
+                logger.error(f"Failed to write logs to {log_path}: {str(e)}")
+                print(f"Warning: Could not write logs to {log_path}")
 
         return running_container
 

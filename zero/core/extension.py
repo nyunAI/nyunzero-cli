@@ -8,7 +8,7 @@ from zero.core.constants import (
 )
 from zero.core.utils import pull_docker_image
 from zero.core.models import NyunDocker
-from typing import Any, Set, List, Dict, Union, Tuple
+from typing import Any, Set, List, Dict, Union, Tuple, Optional
 from pathlib import Path
 import logging
 from docker.models.containers import ExecResult, Container
@@ -88,7 +88,7 @@ class BaseExtension:
         # call utils.uninstall
         self.installed = False
 
-    def run(self, file_path: Path, workspace: "Workspace") -> Container:
+    def run(self, file_path: Path, workspace: "Workspace", log_path: Optional[Path] = None) -> Container:
         # find from registry the metadata that has algorithm and then find the corresponding NyunDocker; then for the NyunDocker trigger the .run()
         import yaml
 
@@ -120,7 +120,7 @@ class BaseExtension:
 
         if metadata is None:
             raise ValueError(f"No docker image found for algorithm: {algorithm}")
-        return metadata.docker_image.run(file_path, workspace, metadata)
+        return metadata.docker_image.run(file_path, workspace, metadata, log_path=log_path)
 
 
 class KompressVisionExtension(BaseExtension):

@@ -1,5 +1,6 @@
-from typing import Dict
+from typing import Dict, Optional
 from pathlib import Path
+from docker.models.containers import Container  # Import Container directly from docker
 from zero.core.constants import DockerRepository, DockerTag
 from zero.core.utils import pull_docker_image, run_docker_container, remove_docker_image
 
@@ -15,7 +16,7 @@ class NyunDocker:
             cls.registry[key] = instance
         return cls.registry[key]
 
-    def __init__(self, repository: str, tag: str):
+    def __init__(self, repository: DockerRepository, tag: DockerTag):
         self.repository = repository
         self.tag = tag
 
@@ -39,9 +40,14 @@ class NyunDocker:
             return (self.repository, self.tag) == (other.repository, other.tag)
         return False
 
-    def run(self, file_path: Path, workspace: "Workspace", metadata: "DockerMetadata"):
-        # TODO: validate the path (corresponding to container)
-        return run_docker_container(file_path, workspace, metadata, self)
+    def run(
+        self, 
+        file_path: Path, 
+        workspace: "Workspace", 
+        metadata: "DockerMetadata",
+        log_path: Optional[Path] = None
+    ) -> Container:
+        return run_docker_container(file_path, workspace, metadata, self, log_path=log_path)
 
         # TODO: except if docker is unavailable due to some reason:
         # pull docker and run again.

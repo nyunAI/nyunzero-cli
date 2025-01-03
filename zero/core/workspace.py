@@ -240,6 +240,20 @@ class Workspace:
     def get_workspace_env_file(self) -> Optional[Path]:
         return WorkspaceSpec.get_env_file_path(self.workspace_path)
 
+    def init_workspace(self):
+        """Initialize workspace directory structure"""
+        # Create main directories
+        self.workspace_path.mkdir(parents=True, exist_ok=True)
+        
+        # Create standard subdirectories
+        subdirs = ['models', 'datasets', 'jobs', 'logs']
+        for subdir in subdirs:
+            (self.workspace_path / subdir).mkdir(exist_ok=True)
+        
+        # Create custom_data directory if specified
+        if self.custom_data_path:
+            self.custom_data_path.mkdir(parents=True, exist_ok=True)
+
 
 def get_workspace_and_custom_data_paths(
     workspace: Union[Path, AnyStr, None], custom_data: Union[Path, AnyStr, None]
