@@ -56,6 +56,8 @@ def init(
             overwrite=overwrite,
             extensions=extensions[0],
         )
+        workspace.init_extension()
+
         
         # Create standard directory structure
         for dir_name in ["models", "datasets", "jobs", "logs", ".cache"]:
@@ -92,20 +94,7 @@ def run(
         raise typer.Abort()
 
     # Get workspace paths and extensions
-    workspace_path, custom_data_path, extensions = get_workspace_and_custom_data_paths(
-        None, None
-    )
-    try:
-        workspace = Workspace(
-            workspace_path=workspace_path,
-            custom_data_path=custom_data_path,
-            overwrite=False,
-            extensions=extensions[0],
-        )
-    except:
-        typer.echo("Workspace not initialized. Use `nyun init`.")
-        raise typer.Abort()
-    ext_obj = workspace.init_extension()
+    
     try:
         with Progress(
             SpinnerColumn(),
