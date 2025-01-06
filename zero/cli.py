@@ -94,8 +94,21 @@ def run(
         raise typer.Abort()
 
     # Get workspace paths and extensions
+    workspace_path, custom_data_path, extensions = get_workspace_and_custom_data_paths(
+        None, None
+    )
     
     try:
+        # Initialize workspace
+        workspace = Workspace(
+            workspace_path=workspace_path,
+            custom_data_path=custom_data_path,
+            overwrite=False,
+            extensions=extensions[0],
+        )
+        # Initialize extensions
+        ext_obj = workspace.init_extension()
+        
         with Progress(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
@@ -135,12 +148,9 @@ def run(
                         refresh=True,
                     )
                     raise e
-
-    except ContainerError as e:
-        typer.echo(f"\nContainer Error: {e.stderr}", err=True)
-        raise typer.Abort()
+                
     except Exception as e:
-        typer.echo(f"\nError: {str(e)}")
+        typer.echo(f"Failed: {str(e)}")
         raise typer.Abort()
 
 
