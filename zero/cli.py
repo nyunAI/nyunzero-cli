@@ -60,11 +60,11 @@ def init(
 
         
         # Create standard directory structure
-        for dir_name in ["models", "datasets", "jobs", "logs", ".cache"]:
-            (workspace_path / dir_name).mkdir(parents=True, exist_ok=True)
+        # for dir_name in ["models", "datasets", "jobs", "logs", ".cache"]:
+        #     (workspace_path / dir_name).mkdir(parents=True, exist_ok=True)
             
-        typer.echo(f"Workspace initialized at {workspace_path}")
-        typer.echo(f"Custom data directory at {custom_data_path}")
+        # typer.echo(f"Workspace initialized at {workspace_path}")
+        # typer.echo(f"Custom data directory at {custom_data_path}")
         
     except Exception as e:
         typer.echo(f"Failed to initialize workspace: {str(e)}")
