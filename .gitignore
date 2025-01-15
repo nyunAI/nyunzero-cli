@@ -3,3 +3,7 @@
 __pycache__
 build
 dist
+.github
+.nyunservice
+tests/
+nyuntam/text_generation/

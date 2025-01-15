@@ -3,14 +3,14 @@ import configparser
 from pathlib import Path
 from typing import Dict, AnyStr, Union, Tuple, Optional
 
-from zero.core.constants import WorkspaceExtension, WorkspaceMessage, WorkspaceSpec
-from zero.core.extension import (
+from cli.core.constants import WorkspaceExtension, WorkspaceMessage, WorkspaceSpec
+from cli.core.extension import (
     BaseExtension,
     KompressVisionExtension,
     KompressTextGenerationExtension,
     AdaptExtension,
 )
-from zero.core.logger import init_logger
+from cli.core.logger import init_logger
 
 from logging import getLogger
 

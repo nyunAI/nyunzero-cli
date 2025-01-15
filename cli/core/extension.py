@@ -1,4 +1,4 @@
-from zero.core.constants import (
+from cli.core.constants import (
     WorkspaceExtension,
     DockerRepository,
     DockerTag,
@@ -6,8 +6,8 @@ from zero.core.constants import (
     Platform,
     YamlKeys,
 )
-from zero.core.utils import pull_docker_image
-from zero.core.models import NyunDocker
+from cli.core.utils import pull_docker_image
+from cli.core.models import NyunDocker
 from typing import Any, Set, List, Dict, Union, Tuple, Optional
 from pathlib import Path
 import logging

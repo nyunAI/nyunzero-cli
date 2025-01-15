@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-from zero.version import __version__ as version
+from cli.version import __version__ as version
 import os
 import sys
 
@@ -12,27 +12,24 @@ with open(readme_file, "r") as fh:
 install_requires = ["typer", "docker", "python-dotenv", "PyYAML"]
 
 if sys.version_info.major >= 3 and sys.version_info.minor < 11:
-    install_requires.extend(["StrEnum"])  # StrEnum breaking changes in py>=3.11
+    install_requires.extend(["StrEnum"])
 
 setup(
-    name="nyun",
+    name="nyuntam",
     version=version,
     author="NyunAI",
     author_email="contact@nyunai.com",
-    description="A CLI package with 'init' and 'run' commands",
+    description="Nyuntam CLI and Core Library",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/nyunAI/nyunzero-cli.git",
+    url="https://github.com/nyunAI/nyuntam.git",
     packages=find_packages(),
-    package_data={
-        "zero": ["services/*"],
-    },
     include_package_data=True,
     python_requires=">=3.8, <=3.11",
     install_requires=install_requires,
     entry_points={
         "console_scripts": [
-            "nyun=zero.cli:app",
+            "nyun=cli.cli:app",
         ],
     },
     extras_require={},

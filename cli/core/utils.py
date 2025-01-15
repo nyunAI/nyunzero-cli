@@ -12,17 +12,15 @@ from dotenv import load_dotenv, dotenv_values
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from docker.models.containers import Container, ExecResult
-from zero.core.constants import (
+from cli.core.constants import (
     DockerPath,
     DockerCommand,
     WorkspaceExtension,
     NYUN_ENV_KEY_PREFIX,
     EMPTY_STRING,
 )
-from zero import (
-    NYUNTAM as NyunService,
-    SERVICES as NyunServices,
-)
+from cli import NYUNTAM
+from cli import SERVICES as NyunServices
 from docker.types import Mount, DeviceRequest
 from docker.errors import NotFound, ImageNotFound, ContainerError
 from pathlib import Path
@@ -251,10 +249,10 @@ def run_docker_container(
                 type="bind",
                 read_only=True,
             ),
-            # Mount service
+            # Mount nyuntam directory
             Mount(
-                source=str(NyunServices),
-                target=str(DockerPath.NYUN_SERVICES.value),
+                source=str(NYUNTAM),
+                target=str(DockerPath.NYUNTAM.value),
                 type="bind",
                 read_only=True,
             ),
@@ -363,24 +361,12 @@ def get_environment_keys_from_workspace(env_file_path: Path) -> Dict[str, str]:
 
 
 def get_service_from_metadata_extension_type(extension_type: WorkspaceExtension) -> str:
-    """
-    Get the service name from the metadata extension type.
-
-    Args:
-        extension_type (WorkspaceExtension): The extension type.
-
-    Returns:
-        str: The service name.
-    """
-    service = None
+    """Get the service name from the metadata extension type."""
     if extension_type in {
         WorkspaceExtension.TEXT_GENERATION,
         WorkspaceExtension.VISION,
         WorkspaceExtension.ADAPT,
     }:
-        service = NyunService
+        return str(NYUNTAM)
 
-    if service is None:
-        raise ValueError(f"Invalid extension type: {extension_type}")
-
-    return service
+    raise ValueError(f"Invalid extension type: {extension_type}")

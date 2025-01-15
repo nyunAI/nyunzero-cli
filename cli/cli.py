@@ -1,10 +1,10 @@
 import typer
 from pathlib import Path
-from zero.version import __version__
-from zero.docs import NYUN_TRADEMARK
-from zero.core.workspace import (
+from cli.version import __version__
+from cli.docs import NYUN_TRADEMARK
+from cli.core.workspace import (
     Workspace,
-    WorkspaceExtension,
+    WorkspaceExtension,  # noqa: F401
     get_workspace_and_custom_data_paths,
 )
 

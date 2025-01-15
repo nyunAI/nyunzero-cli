@@ -238,13 +238,10 @@ class YamlKeys(StrEnum):
 
 
 class DockerPath(Enum):
-
     SCRIPT = Path("/scripts")
     WORKSPACE = Path("/workspace")
     USER_DATA = Path("/user_data")
-
-    NYUN_SERVICES = Path("/nyun")
-
+    NYUNTAM = Path("/nyuntam")
     CUSTOM_DATA = Path("/custom_data")
 
     @staticmethod
@@ -261,29 +258,24 @@ class DockerPath(Enum):
 
     @staticmethod
     def get_script_path_in_docker(script_path: Path):
-        # maps /some/path/to/script.extension:/scripts/script.extension
         return DockerPath.SCRIPT.value / script_path.name
 
     @staticmethod
-    def get_service_path_in_docker(service_name: str):
-        return DockerPath.NYUN_SERVICES.value / service_name
+    def get_nyuntam_path_in_docker():
+        return DockerPath.NYUNTAM.value
 
 
 class DockerCommand(StrEnum):
-    # Base commands
-    REMOVE_DIR = "rm -rf nyuntam"
-    CLONE = "git clone --recursive https://github.com/nyunAI/nyuntam.git"
-    CD = "cd nyuntam"
-    RUN = "python nyuntam/main.py --yaml_path {script_path}"
+    # Base commands - removed clone commands, using mounted directory
+    RUN = "python /nyuntam/main.py --yaml_path {script_path}"
 
     @staticmethod
     def get_run_command(script_path: Union[Path, str], algorithm: Optional[Algorithm] = None) -> str:
         """
         Get the appropriate run command based on the algorithm.
+        Uses mounted nyuntam directory instead of cloning.
         """
-        # Add remove directory command before clone
-        # && {DockerCommand.CD} 
-        return f"/bin/bash -c '{DockerCommand.REMOVE_DIR} && {DockerCommand.CLONE} && {DockerCommand.RUN.format(script_path=script_path)} && rm -rf nyuntam'"
+        return f"/bin/bash -c '{DockerCommand.RUN.format(script_path=script_path)}'"
 
 
 NYUN_ENV_KEY_PREFIX = "NYUN_"

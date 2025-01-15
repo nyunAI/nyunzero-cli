@@ -1,8 +1,8 @@
 from typing import Dict, Optional
 from pathlib import Path
 from docker.models.containers import Container  # Import Container directly from docker
-from zero.core.constants import DockerRepository, DockerTag
-from zero.core.utils import pull_docker_image, run_docker_container, remove_docker_image
+from cli.core.constants import DockerRepository, DockerTag
+from cli.core.utils import pull_docker_image, run_docker_container, remove_docker_image
 
 
 class NyunDocker:
