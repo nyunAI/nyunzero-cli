@@ -1,11 +1,11 @@
 [Workspace]
-path = /home/ubuntu/nyunzero-cli
+path = /home/ishan/nyunzero-cli
 
 [CustomData]
-path = /home/ubuntu/nyunzero-cli/custom_data
+path = /home/ishan/nyunzero-cli/custom_data
 
 [Logs]
-path = .nyunservices/zero.log
+path = /home/ishan/nyunzero-cli/.nyunservices/zero.log
 
 [Extensions]
 kompress-vision = True
