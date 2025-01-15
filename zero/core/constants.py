@@ -196,20 +196,8 @@ class Platform(StrEnum):
 
 class Algorithm(StrEnum):
 
-    # kompress vision
-    KDTRANSFER = "KDTransfer"
-    MMRAZORDISTILL = "MMRazorDistill"
-    ONNXQUANT = "ONNXQuant"
-    FXQUANT = "FXQuant"
-    MMRAZOR = "MMRazor"
-    NNCFQAT = "NNCFQAT"
-    TORCHPRUNE = "TorchPrune"
-    NNCF = "NNCF"
-
     # kompress text-generation
     AUTOAWQ = "AutoAWQ"
-    MLCLLM = "MLCLLM"
-    EXLLAMA = "ExLlama"
     TENSORRTLLM = "TensorRTLLM"
     FLAPPRUNER = "FlapPruner"
     TENSORRT = "TensorRT"
@@ -217,14 +205,6 @@ class Algorithm(StrEnum):
     # adapt
     # NOTE: The following values are essentially "TASK" values in adapt
     # TODO: Use a constant set of keys post standardization of hyperparams across Nyun
-
-    DETECTION = "object_detection"
-    IMAGE_CLASSIFICATION = "image_classification"
-    POSE_DETECTION = "pose_estimation"
-    QUESTION_ANSWERING = "question_answering"
-    SEGMENTATION = "image_segmentation"
-    SEQ2SEQ_TASKS = "Seq2Seq_tasks"
-    TEXT_CLASSIFICATION = "text_classification"
     TEXT_GENERATION = "text_generation"
 
 

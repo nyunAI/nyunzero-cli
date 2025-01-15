@@ -6,9 +6,7 @@ from typing import Dict, AnyStr, Union, Tuple, Optional
 from zero.core.constants import WorkspaceExtension, WorkspaceMessage, WorkspaceSpec
 from zero.core.extension import (
     BaseExtension,
-    KompressVisionExtension,
-    KompressTextGenerationExtension,
-    AdaptExtension,
+    NyuntamTextGenerationExtension,
 )
 from zero.core.logger import init_logger
 
@@ -227,13 +225,10 @@ class Workspace:
         extensions = dict(self.workspace_spec[WorkspaceSpec.EXTENSIONS])
         ext_obj = BaseExtension()
         for key, value in extensions.items():
-            if value == "True":
-                if WorkspaceExtension(key) == WorkspaceExtension.VISION:
-                    KompressVisionExtension()
-                elif WorkspaceExtension(key) == WorkspaceExtension.TEXT_GENERATION:
-                    KompressTextGenerationExtension()
-                elif WorkspaceExtension(key) == WorkspaceExtension.ADAPT:
-                    AdaptExtension()
+        
+                if WorkspaceExtension(key) == WorkspaceExtension.TEXT_GENERATION:
+                    NyuntamTextGenerationExtension()
+                
         ext_obj.install()
         return ext_obj
 
